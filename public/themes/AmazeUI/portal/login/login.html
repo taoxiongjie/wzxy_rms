@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>实验室预约管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+	<include file="public@header" />
+</head>
+<body>
+<div class="am-g myapp-login">
+	<div class="myapp-login-bg">
+		 <div class="myapp-login-logo">
+			 <img   width="60%" src="__TMPL__/public/img/logo.png">
+		 </div>
+		<div  class="myapp-login-text"  >实验室预约管理系统</div>
+		 <div class="am-u-sm-10 myapp-login-form">
+			<form class="am-form js-ajax-form"  action="{:url('portal/login/doLogin')}" method="post">
+			  <fieldset>
+			    <div class="am-form-group">
+			      <input type="text" name="username"   id="doc-ipt-email-1" value="admin" placeholder="请输入账号">
+			    </div>
+			    <div class="am-form-group">
+			      <input type="password" name="password"   id="doc-ipt-pwd-1"  value="123456"  placeholder="请输入密码">
+			    </div>
+				  <div class="am-form-group">
+					  <input type="text"  name="captcha"  id="doc-ipt-captcha" value=""  placeholder="请输入验证码" style="width: 40%;float: left;margin-right: 10px">
+					  <captcha height="38" width="120" font-size="15"/>
+				  </div>
+
+			    <p><button type="submit" class="am-btn am-btn-default js-ajax-submit">登录</button></p>
+			    <div class="login-text">
+					 <a href="{:cmf_url('portal/Login/findPassword')}" style="color: white">忘记密码</a>
+			    </div>
+
+			  </fieldset>
+			</form>
+		 </div>
+	</div>
+</div>
+</body>
+<script src="__STATIC__/js/admin.js"></script>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+    <include file="public@header" />
+    <link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.mobile.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/footer.mobile.css">
+    <title>实验室预约开放平台</title>
+</head>
+<body   >
+
+    <div class="pet_content pet_content_list">
+      <div class="pet_grzx">
+
+          <div class="pet_grzx_nr">
+              <div class="pet_grzx_ico">
+                  <if condition="isset($user['avatar']) && $user['avatar']">
+                         <img src="{:cmf_get_asset_url($user['avatar'])}" alt="">
+                      <else/>
+                        <img src="__TMPL__/public/img/headicon.png"  />
+                  </if>
+
+              </div>
+              <div class="pet_grzx_name">{$user['user_login']}</div>
+              <div class="pet_grzx_map">{$user['user_nickname']}</div>
+              <div class="pet_grzx_num_font"> {$user['signature']}</div>
+              <php>$user_statuses=array("1"=>"超级管理员","2"=>"普通管理员","3"=>"教师","4"=>"学生");</php>
+              <div class="pet_grzx_num">
+                  <span><a class="iconfont ">&#xea16;</a> <i>{$user_statuses[$user['user_type']]}</i></span>
+                  <span><a class="iconfont ">&#xe7f3;</a><i>{$user['college']}</i></span>
+                  <span><a class="iconfont ">&#xebd9;</a><i>{$user['job_title']}</i></span>
+              </div>
+              <div class="pet_grzx_num">
+                  <span><a  href="{:url('portal/user/info')}" class="iconfont ">&#xe827;</a> <i>个人信息</i></span>
+                  <span><a  href="{:url('portal/user/change_password')}" class="iconfont ">&#xe908;</a><i>密码修改</i></span>
+                  <span> <a href="{:url('portal/Index/logout')}" class="iconfont ">&#xeae2;</a><i>退出</i></span>
+              </div>
+              <div class="pet_grzx_num">
+                  <span><a  href="{:url('portal/MyMessage/index')}" class="iconfont ">&#xe7a7;</a> <i>我的信息</i></span>
+                  <span><a  href="/" class="iconfont ">&#xe780;</a><i>我的预约</i></span>
+
+              </div>
+
+          </div>
+      </div>
+    </div>
+      <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-no-layout" id="footernav">
+          <ul class="am-navbar-nav am-cf am-avg-sm-4">
+              <li name="home">
+                  <a onclick="location.href='/'">
+                      <img src="__TMPL__/public/images/mobile/home.png" width="35" class="home" >
+                      <img src="__TMPL__/public/images/mobile/home-blue.png" width="35" class="home-blue zd-hidden" >
+                      <span class="am-navbar-label">首页</span>
+                  </a>
+              </li>
+              <li name="c">
+                  <a onclick="location.href='/c?tag=2016中国500强'">
+                      <img src="__TMPL__/public/images/mobile/tags.png" width="35" class="company">
+                      <img src="__TMPL__/public/images/mobile/tags-blue.png" width="35" class="company-blue zd-hidden">
+                      <span class="am-navbar-label">预约</span>
+                  </a>
+              </li>
+              <li name="news">
+                  <a href="{:url('portal/BulletinInfo/index')}">
+                      <img src="__TMPL__/public/images/mobile/find.png" width="35" class="news">
+                      <img src="__TMPL__/public/images/mobile/find-blue.png" width="35" class="news-blue zd-hidden">
+                      <span class="am-navbar-label">公告</span>
+                  </a>
+              </li>
+              <li  class="active" name="user">
+                  <a href="{:url('portal/user/index')}">
+                      <img src="__TMPL__/public/images/mobile/user.png" width="35" class="user" style="display: none;">
+                      <img src="__TMPL__/public/images/mobile/user-blue.png" width="35" class="user-blue zd-hidden" style="display: inline;">
+                      <span class="am-navbar-label">我的</span>
+                  </a>
+              </li>
+
+          </ul>
+      </div>
+  </div>
+</body>
+</html>

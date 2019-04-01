@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<include file="public@header" />
+	<link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+	<title>实验室资产管理系统</title>
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="{:url('portal/user/index')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name"> <strong >个人资料</strong> / <small>Personal information</small> </div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 60px;">
+		<form class="am-form am-form-horizontal js-ajax-form" role="form" method="post" action="{:url('portal/user/userinfoPost')}">
+			<div class="am-form-group">
+				<label for="avatar" class="am-u-sm-3 am-form-label">头像</label>
+				<div class="am-u-sm-9">
+					<input type="hidden" name="avatar" id="avatar" value="{$avatar}">
+					<input type="hidden" name="avatar_old" id="avatar_old" value="{$avatar}">
+					<a href="javascript:uploadOneImage('头像上传','#avatar','Avatar');" style="text-decoration:none;">
+						<if condition="isset($user['avatar']) && $user['avatar']">
+							<img src="{:cmf_get_asset_url($user['avatar'])}"
+								 id="avatar-preview" width="50%" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+							<else/>
+							<img src="__TMPL__/public/img/headicon.png"
+								 id="avatar-preview"
+								 width="50%" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+						</if>
+					</a>
+					<input type="button" class="am-btn am-btn-primary" style="border: 2px solid #FFF;border-radius: 36px;" onclick="$('#avatar-preview').attr('src','__TMPL__/public/img/headicon.png');$('#avatar').val('');return false;" value="取消图片">
+
+
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="user_nickname" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>昵称:</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="user_nickname"  name="user_nickname" placeholder="姓名"  value="{$user_nickname}">
+
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="sex" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>性别:</label>
+				<div class="am-u-sm-9">
+					<php>$sexs=array("0"=>'女',"1"=>'男',"2"=>'保密');</php>
+					<select class="form-control select2"  name="sex" style="width: 100%;">
+						<foreach name="sexs" item="vo">
+							<php>$sexselected=$key==$sex?"selected":"";</php>
+							<option value="{$key}" {$sexselected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="college" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>学院</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="college" name="college"  placeholder="请输入所属学院" value="{$college}"  >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="class" class="am-u-sm-3 am-form-label">专业/班别</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="class" name="class"  placeholder="请输入专业（班别）" value="{$class}"  >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="position" class="am-u-sm-3 am-form-label">职位</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="position" name="position"  placeholder="请输入职位" value="{$position}"  >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="job_title" class="am-u-sm-3 am-form-label">职称</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="job_title" name="job_title"  placeholder="请输入职称" value="{$job_title}"  >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="mobile" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>手机</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="mobile" name="mobile"  placeholder="请输入手机" value="{$mobile}"  >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="user_email" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>邮箱</label>
+				<div class="am-u-sm-9">
+					<input type="tel" id="user_email" name="user_email"  placeholder="请输入邮箱" value="{$user_email}"  >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<div class="am-u-sm-9 am-u-sm-push-3">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="am-btn am-btn-primary js-ajax-submit">保存修改</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+	</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

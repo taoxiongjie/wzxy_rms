@@ -1,0 +1,101 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('ScrapInfo/index')}">报废资产报废列表</a></li>
+			<li><a href="{:url('ScrapInfo/add')}">添加报废资产</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('ScrapInfo/index')}">
+			报废资产名称:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$name|default=''}" placeholder="请输入报废资产名...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('ScrapInfo/index')}">清空</a>
+			<!--上传EXECL表格:
+			<input type="text" id="js-link-file" class="form-control" style="width: 200px" > <a href="javascript:uploadOne('请上传.xlsx表格文件','#js-link-file','file','Excel');">上传EXECL表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" class="btn btn-primary" id="upload" value="上传" />
+			<a class="btn btn-danger" href="{:url('ScrapInfo/download_ScrapInfo')}" >下载数据文件</a>
+			<span id="tishi"></span>-->
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('ScrapInfo/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('ScrapInfo/toggle',array('display'=>1))}" data-subcheck="true">已修复</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('ScrapInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="120">报废资产名称</th>
+						<th>报废人</th>
+						<th width="140">报废时间</th>
+						<th>报废信息</th>
+						<th width="140">更新时间</th>
+						<th width="80">操作人</th>
+						<th width="80">状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<php>$ScrapInfo_statuses=array("0"=>"报废","1"=>"已修复","2"=>"正在报废");</php>
+				<foreach name="scrap_info_data" item="vo">
+					<tr>
+						<td>
+							<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
+								   value="{$vo.id}" title="ID:{$vo.id}">
+						</td>
+						<td>
+							<input name="list_orders[{$vo.id}]" class="input-order" type="text"
+								   value="{$vo.list_order}">
+						</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.repairer}</td>
+						<td>{$vo.start_time}</td>
+						<td>{$vo.repair_info}</td>
+						<td>{$vo.update_time}</td>
+						<td>{$vo.user_nickname}</td>
+						<td>{$ScrapInfo_statuses[$vo['status']]}</td>
+						<td>
+								<a href='{:url("ScrapInfo/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+								<a class="js-ajax-delete" href="{:url('ScrapInfo/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="120">报废资产名称</th>
+						<th>报废人</th>
+						<th width="140">报废时间</th>
+						<th>报废信息</th>
+						<th width="140">更新时间</th>
+						<th width="80">操作人</th>
+						<th width="80">状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('ScrapInfo/toggle',array('display'=>1))}" data-subcheck="true">已修复</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('ScrapInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

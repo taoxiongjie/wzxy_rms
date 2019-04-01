@@ -1,0 +1,117 @@
+@charset "utf-8";
+.project-list-box{
+
+}
+.project-list-box ul li{
+    width: 120px;
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    border-style: ridge;
+    margin-bottom:20px ;
+    list-style:none;
+    list-style-position:outside;
+
+}
+.project-list-box ul li:hover {
+    transform: scale(1.005,1.005);
+    -webkit-box-shadow: 0 4px 15px 0 #aaaaaa;
+    -ms-box-shadow: 0 4px 15px 0 #aaaaaa;
+    box-shadow: 0 4px 15px 0 #aaaaaa;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.project-list-box ul li .pro-info-box{
+    width: 120px;
+    height: 150px;
+    position:absolute;
+    z-index: 1;
+    border-radius: 4px;
+}
+.project-list-box ul li .pro-info-box .pro-img{
+    width: 115px;
+    height: 60px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.project-list-box ul li .pro-info-box .pro-name{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #333333;
+    border-bottom: 0.5px solid #eee;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+.project-list-box ul li .pro-info-box .name-time{
+    display: inline-block;
+    color: #0a0a0a;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.project-list-box ul li .pro-info-box .pro-info{
+    padding: 0px 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    color: #bbbbbb;
+}
+.project-list-box ul li .pro-info-box .pro-info img{
+    display: inline-block;
+    margin: 2px 5px 5px 5px;
+}
+.project-list-box ul li .pro-op-box{
+    position: absolute;
+    width: 230px;
+    height: 280px;
+    background-color:#FFFFFF;
+    z-index: -1;
+    border-radius: 4px;
+}
+.clear {
+    line-height: 0px;
+    clear: both;
+    height: 0px;
+    font-size: 0px;
+}
+.project-list-box ul li .pro-op-box .edit-pro-btn{
+
+}
+.project-list-box ul li .pro-op-box .edit-pro-btn a{
+    width: 200px;
+    height: 55px;
+    border: 1px solid #426cc3;
+    line-height: 55px;
+    font-size: 20px;
+    color: #426cc3;
+    margin: auto;
+    display: block;
+}
+.project-list-box ul li .pro-op-box .edit-pro-btn a:hover{
+    background-color:#426cc3;
+    color:#fff;
+}
+.project-list-box ul li .pro-op-box .edit-pro-btn a img{
+    width: 27px;
+    height: 27px;
+    margin-right: 18px;
+    display: inline-block;
+}
+.project-list-box ul li .pro-op-box .item-box {
+    width: 208px;
+    height: 30px;
+    margin: auto;
+    padding-left: 10px;
+}
+

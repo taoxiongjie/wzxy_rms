@@ -1,0 +1,207 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('AdminTea/index')}">教师列表</a></li>
+        <li  ><a href="{:url('AdminTea/add')}">教师添加</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('AdminTea/index')}">
+
+        关键字：
+        <input class="form-control" type="text" name="keyword" style="width: 300px;" value="{:input('request.keyword')}"
+               placeholder="工号/昵称/邮箱/手机">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('user/AdminTea/index')}">清空</a>
+        上传EXECL表格:
+        <input type="text" id="js-link-file" class="form-control" style="width: 200px" > <a href="javascript:uploadOne('请上传.xlsx表格文件','#js-link-file','file','Excel');">上传EXECL表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" class="btn btn-primary" id="upload" value="上传" />
+        <a class="btn btn-danger" href="{:url('adminTea/download_userInfo')}" >下载数据文件</a>
+        <span id="tishi"></span>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名（工号）</th>
+                <th>昵称</th>
+                <th>头像</th>
+                <th>性别</th>
+                <th>学院</th>
+                <th>职位</th>
+                <th>职称</th>
+                <th>{:lang('EMAIL')}</th>
+                <th>手机</th>
+                <th>创建时间</th>
+                <th>{:lang('LAST_LOGIN_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_IP')}</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <php>
+                $user_statuses=array("0"=>lang('USER_STATUS_BLOCKED'),"1"=>lang('USER_STATUS_ACTIVATED'),"2"=>lang('USER_STATUS_UNVERIFIED'));
+            </php>
+            <php>$user_sex=array("0"=>"保密","1"=>"男","2"=>"女");</php>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo['user_login']} </td>
+                    <td>{$vo['user_nickname']}</td>
+                    <if condition="!empty($vo['avatar'])">
+                        <td><img width="45" height="45" src="{:cmf_get_asset_url($vo['avatar'])}"/></td>
+                        <else/>
+                         <td><img width="45" height="45" src="__TMPL__/public/assets/images/headicon.png"/></td>
+                    </if>
+                    <td>{$user_sex[$vo['sex']]}</td>
+                    <td>{$vo.college}</td>
+                    <td>{$vo.position}</td>
+                    <td>{$vo.job_title}</td>
+                    <td>{$vo.user_email}</td>
+                    <td>{$vo.mobile}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['last_login_time'])}</td>
+                    <td>{$vo.last_login_ip}</td>
+                    <td>{$user_statuses[$vo['user_status']]}</td>
+                    <td>
+                        <a href='{:url("adminTea/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a> |
+                        <a class="js-ajax-delete" href="{:url('adminTea/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a> |
+                        <neq name="vo.id" value="1">
+                            <empty name="vo.user_status">
+                                <a href="{:url('adminTea/cancelban',array('id'=>$vo['id']))}"
+                                   class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:lang('ACTIVATE_USER')}</a>
+                                <else/>
+                                <a href="{:url('adminTea/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
+                            </empty>
+                            <else/>
+                            <a style="color: #ccc;">{:lang('BLOCK_USER')}</a>
+                        </neq>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    $('#upload').click(function(){
+        var file_url=$('#js-link-file').val();
+        var upload=$('#upload').val();
+        if(!file_url){
+            $('#tishi').html("请上传文件!");
+            setTimeout(cleared,3000);
+        }else{
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:url('adminTea/upload_field_excel_post')}",
+                data: {"file_url":file_url,"upload":upload},
+                async: false,
+                error: function(request) {
+                    alert("数据出错");
+                },
+                success: function(data) {
+                    var data = eval(data);
+                    if(data.status==1){
+                        $('#tishi').html(data.info);
+                        setTimeout(cleared,2000);
+                    }
+                    else{
+                        $('#tishi').html(data.info);
+                        setTimeout(cleared(),2000);
+                    }
+
+
+                }
+            });
+        }
+    })
+    $('#replace').on('click', function (e) {
+        e.preventDefault();
+        var $_this = this,
+            $this = $($_this),
+            href = $this.data('href'),
+            msg = $this.data('msg');
+        href = href ? href : $this.attr('href');
+        art.dialog({
+            title: false,
+            icon: 'question',
+            content: msg ? msg : '确定要替换所有数据吗？',
+            follow: $_this,
+            close: function () {
+                $_this.focus();; //关闭时让触发弹窗的元素获取焦点
+                return true;
+            },
+            okVal: "确定",
+            ok: function () {
+                var file_url=$('#js-link-file').val();
+                var upload="";
+                if(!file_url){
+                    $('#tishi').html("请上传文件!");
+                    setTimeout(cleared,2000);
+                }else{
+
+                    $.ajax({
+                        cache: true,
+                        type: "POST",
+                        url: "{:url('user/upload_field_excel_post')}",
+                        data: {"file_url":file_url,"upload":upload},
+                        async: false,
+                        error: function(request) {
+                            alert("数据出错");
+                        },
+                        success: function(data) {
+                            var data = eval(data);
+                            if(data.status==1){
+                                $('#tishi').html(data.info);
+                                setTimeout(cleared,2000);
+                            }
+                            else{
+                                $('#tishi').html(data.info);
+                                setTimeout(cleared(),2000);
+                            }
+
+
+                        }
+                    });
+                }
+                $.getJSON(href).done(function (data) {
+                    if (data.state === 'success') {
+                        if (data.referer) {
+                            location.href = data.referer;
+                        } else {
+                            reloadPage(window);
+                        }
+                    } else if (data.state === 'fail') {
+                        //art.dialog.alert(data.info);
+                        //alert(data.info);//暂时处理方案
+                        art.dialog({
+                            content: data.info,
+                            icon: 'warning',
+                            ok: function () {
+                                this.title(data.info);
+                                return true;
+                            }
+                        });
+                    }
+                });
+            },
+            cancelVal: '关闭',
+            cancel: true
+        });
+    });
+    function cleared(){
+        $('#tishi').html("");
+        $('#js-link-file').val("");
+        window.location.reload();
+    }
+
+</script>
+</body>
+</html>

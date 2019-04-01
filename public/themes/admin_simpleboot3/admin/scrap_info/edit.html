@@ -1,0 +1,70 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('ScrapInfo/index')}">报废资产列表</a></li>
+        <li ><a href="{:url('ScrapInfo/add')}">添加报废资产</a></li>
+        <li class="active"><a href="{:url('ScrapInfo/edit')}">报废资产编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('ScrapInfo/editpost')}">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>报废资产名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" readonly value="{$name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>报废人</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repairer" name="repairer" value="{$repairer}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>报废时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-start_time" name="start_time" value="{$start_time}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>报废信息</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" style="height: 200px" name="repair_info" id="input-repair_info">{$repair_info}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="{$list_order}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <if condition="$data['status'] eq 0">
+                        <foreach name="arrStatus" key="k" item="vo">
+                            <php>$id_selected=$data['status']==$k?"selected":"";</php>
+                            <option value="{$k}"{$id_selected} >{$vo}</option>
+                        </foreach>
+                    <else />
+                        <option value="1"  >已修复</option>
+                    </if>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}" />
+                <input type="hidden" name="asset_id" value="{$asset_id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<html class="am-touch js cssanimations"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=0.5,user-scalable=no">
+    <title>实验室预约开放平台</title>
+    <link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+    <link type="text/css" rel="stylesheet" href="__TMPL__/public/plugins/amazeui-2.4/css/amazeui.min.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.mobile.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/header.mobile.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/footer.mobile.css">
+
+</head>
+
+<body class="am-with-fixed-navbar">
+<div id="view">
+    <div class="head-search">
+        <form action="{:url('portal/MyMessage/index')}" class="am-form-inline" role="search" id="search-form">
+            <div class="am-input-group am-input-group-secondary">
+                <input class="am-form-field" value="" placeholder="搜索收到信息" name="name" id="kyword">
+                <span class="am-input-group-btn">
+                    <button type="submit" class="am-btn am-btn-xs">
+                        <span class="am-icon-search"></span>
+                </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/subjectlist.mobile.css?0.2.1">
+    <div id="subject-list">
+
+    
+    <ul class="am-list" id="subjectlist">
+        <foreach name="articles" item="vo">
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left am_list_li">
+                <div class="am-u-sm-4 am-list-thumb am_list_thumb">
+                    <a href="{:url('portal/MyMessage/view',array('id'=>$vo['id']))}">
+                         <img class="am_news_list_img" src="__TMPL__/public/images/new.jpg" style="width: 100%;height: auto;max-height: 85px;">
+                    </a>
+                </div>
+                <div class=" am-u-sm-8 am-list-main am_list_main" style="padding: 15px 5px 0 10px;">
+                    <h3 class="am-list-item-hd am_list_title">
+                        <a href="{:url('portal/MyMessage/view',array('id'=>$vo['id']))}" title="{$vo.post_title}">{$vo.post_title}</a>
+                    </h3>
+                    <div class="am_list_author"  >
+                        <span class="name">发送者:{$vo.user_nickname}</span>
+                        <if condition="( $vo['is_read'] eq 0 ) ">
+                            <span class="am_news_time" style="float: right;color: red">未读</span>
+                            <else/>
+                            <span class="am_news_time" style="float: right;">已读</span>
+                        </if>
+                    </div>
+                    <div class="am_list_author">
+                        <span class="name">收到信息</span>
+                        <span class="am_news_time">&nbsp;•&nbsp;<time>{:date('Y-m-d',$vo.create_time)}</time></span>
+                    </div>
+
+
+                </div>
+            </li>
+        </foreach>
+    </ul>
+    <div class="am_news_load" id="zdloadall"  style="margin-left: 10px">
+        <div class="am-pagination">{$page|default=''}</div>
+    </div>
+    
+</div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-no-layout" id="footernav">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li name="home">
+                <a onclick="location.href='/'">
+                    <img src="__TMPL__/public/images/mobile/home.png" width="35" class="home" >
+                    <img src="__TMPL__/public/images/mobile/home-blue.png" width="35" class="home-blue zd-hidden">
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li name="c">
+                <a onclick="location.href='/c?tag=2016中国500强'">
+                    <img src="__TMPL__/public/images/mobile/tags.png" width="35" class="company">
+                    <img src="__TMPL__/public/images/mobile/tags-blue.png" width="35" class="company-blue zd-hidden">
+                    <span class="am-navbar-label">预约</span>
+                </a>
+            </li>
+            <li name="news">
+                <a href="{:url('portal/BulletinInfo/index')}">
+                    <img src="__TMPL__/public/images/mobile/find.png" width="35" class="news">
+                    <img src="__TMPL__/public/images/mobile/find-blue.png" width="35" class="news-blue zd-hidden">
+                    <span class="am-navbar-label">公告</span>
+                </a>
+            </li>
+            <li  class="active" name="user">
+                <a href="{:url('portal/user/index')}">
+                    <img src="__TMPL__/public/images/mobile/user.png" width="35" class="user" style="display: none;">
+                    <img src="__TMPL__/public/images/mobile/user-blue.png" width="35" class="user-blue zd-hidden" style="display: inline;">
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+</body></html>

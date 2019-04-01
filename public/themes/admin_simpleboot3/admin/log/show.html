@@ -1,0 +1,30 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+	        <li ><a href="{:U('LogManage/index')}">{:L('ADMIN_LOG_MANAGE_INDEX')}</a></li>
+			<li class="active"><a href="{:U('LogManage/show')}">{:L('ADMIN_LOG_MANAGE_SHOW')}</a></li>
+	    </ul>
+		<form class="form-horizontal " id="market_introduce-form" >
+        	<input type="hidden" name="introduce_id" value="{$id}">
+			<div class="row-fluid">
+		        <div class="span9">
+						<fieldset>
+                            <div class="control-group">
+								<label class="control-label" style="color:red;">{:L("USER_NAME")}</label>
+								<div class="controls">
+									<span>1</span>
+								</div>
+							</div>
+						</fieldset>
+		          
+		        </div>
+                
+		    </div>
+		</form>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+    
+</body>
+</html>

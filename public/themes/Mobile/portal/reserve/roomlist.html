@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<include file="public@header" />
+	<title>实验室预约管理系统</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/wap.css">
+	<link type="text/css" rel="stylesheet" href="__TMPL__/public/plugins/amazeui-2.4/css/amazeui.min.css">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.mobile.css">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/subjectlist.mobile.css?0.2.1">
+
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="javascript:history.back(-1);"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name" style="font-size: 18px"> {$building_name}  </div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<div id="subject-list" style="padding-top: 60px;position: fixed; width: 100%;  left: 0; right: 0;">
+		<ul class="am-list" id="subjectlist">
+			<foreach name="data" item="vo">
+				<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left am_list_li">
+					<div class="am-u-sm-4 am-list-thumb am_list_thumb">
+						<a href="{:url('portal/Reserve/timelist',array('room_mark'=>$vo['mark'],'room_name'=>$vo['name']))}">
+							<if condition=" !empty($vo['icon_url']) ">
+								<img class="am_news_list_img" style="width: 100%;height: auto;max-height: 85px;" src="{:cmf_get_asset_url($vo['icon_url'] )}">
+								<else/>
+								<img class="am_news_list_img" src="__TMPL__/public/images/new.jpg" style="width: 100%;height: auto;max-height: 85px;">
+							</if>
+						</a>
+					</div>
+					<div class=" am-u-sm-8 am-list-main am_list_main" style="padding: 0 5px 0 10px;">
+						<h3 class="am-list-item-hd am_list_title">
+							<a href="{:url('portal/Reserve/timelist',array('room_mark'=>$vo['mark'],'room_name'=>$vo['name']))}" >{$vo.name}</a>
+						</h3>
+						<div class="am_list_author">
+							<span class="name">开放时间</span>
+							<span class="am_news_time">:&nbsp;<time>{$vo.start_time}&nbsp;•&nbsp;{$vo.end_time}</time></span>
+						</div>
+						<!--<div class="am-list-item-text am_list_item_text">
+							<p class="abstract">
+								{$vo.remark}
+							</p>
+						</div>-->
+					</div>
+				</li>
+			</foreach>
+		</ul>
+		<div class="am_news_load" id="zdloadall"  style="text-align: center; margin: 10px">已经全部加载完了哦</div>
+	</div>
+</div>
+<script src="__STATIC__/js/frontend.js"></script>
+</body>
+</html>

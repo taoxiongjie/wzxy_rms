@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<include file="public@header" />
+	<link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+	<link rel="stylesheet" href="__TMPL__/public/css/bootstrap.min.css">
+	<title>实验室资产管理系统</title>
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="{:url('portal/asset_info/index')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name"> <strong >编辑资产</strong></div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 60px;">
+		<form class="am-form am-form-horizontal js-ajax-form" role="form" method="post" action="{:url('portal/asset_info/editPost')}">
+			<div class="am-form-group">
+				<label for="icon_url" class="am-u-sm-3 am-form-label">图标</label>
+				<div class="am-u-sm-9">
+					<input type="hidden" name="icon_url" id="icon_url"  value="{$icon_url}"  >
+					<input type="hidden" name="icon_url_old" id="icon_url_old" value="{$icon_url}">
+					<a href="javascript:uploadOneImage('图标上传','#icon_url','Image');" style="text-decoration:none;">
+						<if condition="isset($data['icon_url']) && $data['icon_url']">
+							<img src="{:cmf_get_asset_url($data['icon_url'])}"
+								 id="icon_url-preview"
+								 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+							<else/>
+							<img src="__TMPL__/public/img/headicon.png"
+								 id="icon_url-preview"
+								 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+						</if>
+					</a>
+					<input type="button" class="am-btn am-btn-primary" style="border: 2px solid #FFF;border-radius: 36px;" onclick="$('#icon_url-preview').attr('src','__TMPL__/public/img/headicon.png');$('#icon_url').val('');return false;" value="取消图片">
+
+
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="name" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>资产名称:</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="name"  name="name" placeholder="资产名称" value="{$name}" >
+
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="asset_type" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>资产类型:</label>
+				<div class="am-u-sm-9">
+					<select name="asset_type" class="form-control">
+						<option   >请选择</option>
+						<foreach name="asset_type_data"   item="vo">
+							<php>$id_selected=$data['asset_type']==$vo['id']?"selected":"";</php>
+							<option value="{$vo.id}"{$id_selected} >{$vo.name}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="sex" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>所属楼宇:</label>
+				<div class="am-u-sm-9">
+					<select name="b_mark" id="b_mark" class="form-control">
+						<option  value="" >请选择</option>
+						<foreach name="building_data"   item="vo">
+							<php>$id_selected=$data['b_mark']==$vo['mark']?"selected":"";</php>
+							<option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="f_mark" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>所属楼层:</label>
+				<div class="am-u-sm-9">
+					<select name="f_mark" id="f_mark" class="form-control">
+						<option  value="" >请选择</option>
+						<foreach name="floor_data"   item="vo">
+							<php>$id_selected=$data['f_mark']==$vo['mark']?"selected":"";</php>
+							<option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="r_mark" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>所属教室:</label>
+				<div class="am-u-sm-9">
+					<select name="r_mark" id="r_mark" class="form-control">
+						<option  value="" >请选择</option>
+						<foreach name="room_data"   item="vo">
+							<php>$id_selected=$data['r_mark']==$vo['mark']?"selected":"";</php>
+							<option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="manufact" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>厂家名称</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="manufact" name="manufact"  placeholder="请输入厂家名称"  value="{$manufact}"   >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="asset_num" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>资产型号</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="asset_num" name="asset_num"  placeholder="请输入资产型号" value="{$asset_num}"   >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="purchaser" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>采购人</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="purchaser" name="purchaser"  placeholder="请输入采购人"  value="{$purchaser}"  >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="purchase_amount" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>采购金额(元)</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="purchase_amount" name="purchase_amount"  placeholder="请输入采购金额" value="{$purchase_amount}"   >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="purchase_time" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>购买时间</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="purchase_time" name="purchase_time"  class="js-bootstrap-date" placeholder="请输入购买时间"  value="{$purchase_time}"  >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="supplier" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>供应商</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="supplier" name="supplier"  placeholder="请输入供应商" value="{$supplier}"   >
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<label for="repair_time" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>保修年限(年)</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="repair_time" name="repair_time"  placeholder="请输入保修年限"value="{$repair_time}" >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="power" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>功耗(W)</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="power" name="power"  placeholder="请输入功耗"   value="{$power}" >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="weight" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>载重(kg)</label>
+				<div class="am-u-sm-9">
+					<input type="text" id="weight" name="weight"  placeholder="请输入载重" value="{$weight}"   >
+				</div>
+			</div>
+			<div class="am-form-group">
+				<label for="remark" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>描述</label>
+				<div class="am-u-sm-9">
+
+					<textarea   name="remark" id="remark">{$remark}</textarea>
+				</div>
+			</div>
+
+			<div class="am-form-group">
+				<div class="am-u-sm-9 am-u-sm-push-3">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="am-btn am-btn-primary js-ajax-submit">确认保存</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+	</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $("#b_mark").change(function() {
+        var b_mark = $("#b_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('AssetInfo/floor_data_post')}",
+            data: {b_mark:b_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#f_mark").html(con);
+
+            }
+        });
+
+    });
+    $("#f_mark").change(function() {
+        var f_mark = $("#f_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('AssetInfo/room_data_post')}",
+            data: {f_mark:f_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#r_mark").html(con);
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

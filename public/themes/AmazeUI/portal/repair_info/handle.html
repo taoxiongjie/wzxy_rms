@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <include file="public@header" />
+    <link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+    <link rel="stylesheet" href="__TMPL__/public/css/bootstrap.min.css">
+    <title>实验室资产管理系统</title>
+</head>
+<body >
+<div class="pet_mian"   >
+    <div class="pet_head" >
+        <header data-am-widget="header"
+                class="am-header am-header-default pet_head_block">
+            <div class="am-header-left am-header-nav ">
+                <a href="{:url('portal/RepairInfo/add')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+            </div>
+            <div class="pet_news_list_tag_name"> <strong >添加维修信息</strong></div>
+            <div class="am-header-right am-header-nav">
+                <a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+            </div>
+        </header>
+    </div>
+    <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 60px;">
+        <form class="am-form am-form-horizontal js-ajax-form" role="form" method="post" action="{:url('portal/RepairInfo/handle_post')}">
+
+
+            <div class="am-form-group">
+                <label for="repairer" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>维修人</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="repairer" name="repairer"  placeholder="请输入维修人名称"      >
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label for="start_time" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>起始时间</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="start_time" name="start_time"  class="js-bootstrap-date" placeholder="请输入起始时间"    >
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label for="stop_time" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>终止时间</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="stop_time" name="stop_time"  class="js-bootstrap-date" placeholder="请输入终止时间"     >
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label for="repair_amount" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>维修金额</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="repair_amount" name="repair_amount"  placeholder="请输入维修金额"      >
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="repair_info" class="am-u-sm-3 am-form-label"><span style="color: red">*</span>维修信息</label>
+                <div class="am-u-sm-9">
+
+                    <textarea   name="repair_info" id="repair_info" style="height: 200px"> </textarea>
+                </div>
+            </div>
+
+
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                    <if condition="empty($id)">
+                        <input type="hidden" name="ids" value="{$ids}" />
+                        <else />
+                        <input type="hidden" name="id" value="{$id}" />
+                    </if>
+                    <button type="submit" class="am-btn am-btn-primary js-ajax-submit">确认提交</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

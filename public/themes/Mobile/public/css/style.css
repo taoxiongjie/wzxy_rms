@@ -1,0 +1,310 @@
+/*布局*/
+body {
+    background-color: #ececec;
+    font-size: 1.4rem;
+    color: #333;
+}
+a {
+    /*color: #4285f4;*/
+    color: #77777F;
+    border: 0
+}
+a:hover {
+    /*color: #fe8301*/
+    color: #4285f4;
+    cursor: pointer;
+}
+a:focus {
+    outline: 0
+}
+.zd-container {
+    padding: 1.5rem 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 1px
+}
+.am-container {
+    width: 1200px !important;
+    max-width: none;
+}
+.home-p50 {
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+.home-bannertext {
+    color: #fff;
+    width: 1200px;
+    margin: 80px auto 79px;
+}
+.white-back {
+    background-color: #fff;
+}
+.detail-left {
+    padding: 12px 30px;
+    margin: 10px 0;
+    float: left;
+    width: 100%;
+    box-shadow: none;
+}
+[class*='am-icon-']:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.home-p50 {
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+.zd-hidden {
+    display: none;
+}
+/*右侧用户*/
+#zd-topbar-right #ucenter-nav ul {
+    margin-left: -50px;
+    /* left: 50%; */
+    top: 50px;
+}
+#ucenter-nav .am-dropdown-content:before, #ucenter-nav .am-dropdown-content::after {
+    right: 75px;
+}
+#zd-topbar-right .am-dropdown-content:before, #zd-topbar-right .am-dropdown-content::after {
+    left: auto;
+}
+/*评论框相关*/
+.am-titlebar {
+    margin: -1rem 0 15px 0
+}
+.am-titlebar-default {
+    height: 45px;
+    border-bottom: 1px solid #ececec !important
+}
+.am-titlebar-default .zd-titlebar-title {
+    padding-left: 0;
+    line-height: 46px;
+    width: 68px;
+    /*border-bottom: solid 2px #4285f4;*/
+    margin-bottom: -1px;
+    color: #222;
+    font-size: 1.5rem;
+}
+#comments .am-titlebar-default .zd-titlebar-title {
+    width: 83px
+}
+.am-titlebar-default .zd-titlebar-title:before {
+    border-left: 0
+}
+/*.detail-left .gotop {*/
+/*position: absolute;*/
+/*right: 40px;*/
+/*padding: 3px 0 0 0;*/
+/*}*/
+/*.detail-left .gotop i {*/
+/*color: #ccc*/
+/*}*/
+/*.detail-left .gotop i:hover {*/
+/*color: #f37b1d*/
+/*}*/
+/*.pointer {*/
+/*cursor: pointer;*/
+/*}*/
+/*.detail-left .gotop i {*/
+/*color: #ccc;*/
+/*}*/
+.am-comment .form-group label {
+    display: none;
+}
+.am-comments-list {
+    margin: 0
+}
+.am-comments-list .am-comment {
+    margin-top: 10px
+}
+.am-comment .change_line {
+    word-wrap: break-word;
+    word-break: normal
+}
+.am-comment-author:hover, .am-comment #small_actions a:hover {
+    color: #4285f4
+}
+.am-comment-actions {
+    font-size: 12px
+}
+.am-comment-author {
+    font-weight: 400
+}
+.am-comment blockquote {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 15px 0 5px 0
+}
+.am-comment-bd {
+    padding: 12px 15px 7px 15px
+}
+.am-comment-bd img {
+    max-width: 300px;
+    height: auto
+}
+.am-comment-footer {
+    padding: 0 15px 2px 15px
+}
+.am-comment .form-group label, .comment-reply-form label {
+    display: none
+}
+.am-comment textarea {
+    height: 120px;
+    border: 0;
+    width: 100%
+}
+.comment-reply-form .input_id_comment {
+    border: 1px solid #dedede
+}
+.am-comment .form-actions {
+    text-align: right;
+    padding: 0;
+    height: 0
+}
+.am-comment .comment-reply-form .form-actions {
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    background-color: #fff;
+}
+.replied_to{
+    width: 100%;
+    padding: 10px 20px;
+}
+.am-comment-bd p, .am-comment-bd ul, .am-comment-bd ol {
+    margin: 0
+}
+.am-comment .comment-reply-form {
+    margin: 5px 0
+}
+.am-comment #send_comment {
+    /*margin-bottom: -25px*/
+    display: inline-block;
+    /*margin-top: 10px;*/
+    border-color: #4385f4;
+}
+.am-comment .help-block {
+    margin: 0;
+    padding: 5px 15px;
+    border-top: 1px solid #dedede;
+    color: #cf2d27
+}
+.ke-statusbar {
+    height: 0
+}
+.am-comment-actions {
+    height: 32px
+}
+.am-comment-actions a {
+    padding: 8px 5px
+}
+.am-comment-actions .like, .am-comment-actions .reply {
+    float: right;
+    margin-left: 6px
+}
+.am-comment-meta time {
+    float: left;
+    margin:0 0 0 6px;
+}
+.detail-left .am-titlebar span {
+    position: absolute;
+    right: 72px;
+    padding-top: 3px
+}
+.am-comment-hd {
+    border: 0;
+    background-color: #fff
+}
+.am-comment-main:before, .am-comment-main:after {
+    border: 0
+}
+.am-comment-main {
+    border: 0;
+    border-bottom: 1px dashed #ececec;
+    margin-left: 56px
+}
+.am-comment-meta {
+    padding: 3px 15px
+}
+.am-comment-meta a {
+    color: #4285f4
+}
+#comment {
+    border: 1px solid #ddd;
+    margin: 12px 15px 20px 15px
+}
+.detail-left .am-titlebar span {
+    position: absolute;
+    right: 72px;
+    padding-top: 3px;
+}
+/*.detail-comments #comments {*/
+/*border-top: 1px solid #ececec;*/
+/*padding-top: 10px;*/
+/*}*/
+.detail-comments #comments header {
+    background-color: #fff;
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 10px;
+    border: none;
+}
+#comment textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 12px;
+    padding: 8px 10px;
+    border: none;
+}
+#send_comment,.send_comment {
+    float: right;
+    margin-top: 15px;
+    background-color: #4384f4;
+    border: 1px solid #4285f4;
+}
+.send_comment,.send_comment:focus,.send_comment:hover{
+    cursor: no-drop;
+    background-color: #9c9c9c;
+    border-color: #9c9c9c;
+}
+.cancel_comment,.cancel_comment:focus{
+    margin-top: 15px;
+    background-color: #f37b1d;
+    border-color: #f37b1d;
+}
+/*.am-sticky-placeholder {*/
+/*width: 100%;*/
+/*}*/
+#zd-detail-head-nav-right {
+    width: 291px !important;
+    height: 45px;
+    float: right;
+    background-color: #fafafa;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.am-comment .msg,#msg,.content .msg{
+    display: inline-block;
+    color: #ff0000;
+    margin-left: 30px;
+}
+.change_line .reply_name{
+    display: inline-block;
+    color: #a5a5a5;
+    margin-right: 5px;
+}
+/*分享样式*/
+.jiathis_style_24x24 .jiathis_counter.jiathis_bubble_style{
+    border-right:1px solid #c2c2c2;
+}
+.jiathis_style_24x24{
+    position: relative;
+    right: 0;
+    float: right;
+    display: inline-block;
+    margin: 34px 10px 0;
+}

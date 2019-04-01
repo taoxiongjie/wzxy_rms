@@ -1,0 +1,110 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('RoomInfo/index')}">教室列表</a></li>
+        <li ><a href="{:url('RoomInfo/add')}">添加教室</a></li>
+        <li class="active"><a href="{:url('RoomInfo/edit')}">教室编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('RoomInfo/editpost')}">
+
+        <div class="form-group">
+            <label for="input-RoomInfo_login" class="col-sm-2 control-label"><span class="form-required">*</span>教室名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-sm-2 control-label"><span class="form-required">*</span>标识</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control"  name="mark" value="{$mark}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼宇:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="b_mark" id="b_mark" class="form-control">
+                    <option value=""  >请选择</option>
+                    <foreach name="building_data"   item="vo">
+                        <php>$id_selected=$data['b_mark']==$vo['mark']?"selected":"";</php>
+                        <option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼层:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="f_mark" id="f_mark" class="form-control">
+                    <option value=""  >请选择</option>
+                    <foreach name="floor_data"   item="vo">
+                        <php>$id_selected=$data['f_mark']==$vo['mark']?"selected":"";</php>
+                        <option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="input-RoomInfo_email" class="col-sm-2 control-label"><span class="form-required">*</span>描述</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="remark" id="input-remark">{$remark}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label  class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="{$list_order}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <foreach name="arrStatus" key="k" item="vo">
+                        <php>$id_selected=$data['status']==$k?"selected":"";</php>
+                        <option value="{$k}"{$id_selected} >{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $("#b_mark").change(function() {
+        var b_mark = $("#b_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('RoomInfo/floor_data_post')}",
+            data: {b_mark:b_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#f_mark").html(con);
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap" >
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('RegistrReview/index')}">学生申请列表</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('RegistrReview/index')}">
+        学号：
+        <input class="form-control" type="text" name="user_login" style="width: 200px;" value="{:input('request.user_login')}"
+               placeholder="请输入学号">
+        关键字：
+        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="用户名/昵称/邮箱/手机">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('RegistrReview/index')}">清空</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <div class="table-actions">
+            <button class="btn btn-primary btn-sm  js-ajax-submit " type="submit" data-action="{:Url('RegistrReview/review')}" data-subcheck="true" >批量通过审核</button>
+            <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:Url('RegistrReview/delete')}" data-subcheck="true" >删除</button>
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+                <th width="50">ID</th>
+                <th>用户名（学号）</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>头像</th>
+                <th>学生证</th>
+                <th>学院</th>
+                <th>班级</th>
+                <th>{:lang('EMAIL')}</th>
+                <th>手机</th>
+                <th>注册时间</th>
+                <th>审核说明</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <php>
+                $user_statuses=array("0"=>'未审核',"1"=>'审核通过',"2"=>'审核未通过',"3"=>'违纪拉黑');
+            </php>
+            <php>$sexs=array("0"=>lang('GENDER_SECRECY'),"1"=>lang('MALE'),"2"=>lang('FEMALE'));</php>
+            <foreach name="reviews" item="vo">
+                <tr>
+                    <td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}"></td>
+                    <td width="50">{$vo.id}</td>
+                    <td>{$vo['user_login']}</td>
+                    <td>{$vo['user_nickname']}</td>
+                    <td>{$sexs[$vo['sex']]}</td>
+                    <td>
+                    <if condition="!empty($vo['avatar'])">
+                        <a href="javascript:parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo['avatar'])}');">
+                                <img src="{:cmf_get_asset_url($vo['avatar'] )}" width="40"/>
+                        </a>
+                        <else/>
+                        <img width="45" height="45" src="__TMPL__/public/assets/images/headicon.png"/>
+                    </if>
+                    </td>
+                    <td>
+                    <if condition="!empty($vo['student_card'])">
+                        <a href="javascript:parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo['student_card'])}');">
+                            <img src="{:cmf_get_asset_url($vo['student_card'] )}" width="40"/>
+                        </a>
+                        <else/>
+                        <img width="45" height="45" src="__TMPL__/public/assets/images/headicon.png"/>
+                    </if>
+                    </td>
+                    <td>{$vo.college}</td>
+                    <td>{$vo.class}</td>
+                    <td>{$vo.user_email}</td>
+                    <td>{$vo.mobile}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+
+                    <td>{$vo.review_details}</td>
+
+                    <if condition="$vo['user_status'] eq 0 ">
+                        <td style="color: #0b6cbc">   {$user_statuses[$vo['user_status']]} </td>
+                        <elseif condition="$vo['user_status'] eq 1"/>
+                        <td style="color: #00B83F">   {$user_statuses[$vo['user_status']]} </td>
+                        <elseif condition="$vo['user_status'] eq 2"/>
+                        <td style="color: #985f0d">   {$user_statuses[$vo['user_status']]} </td>
+                        <else/>
+                        <td style="color: red">   {$user_statuses[$vo['user_status']]} </td>
+                    </if>
+
+                    <td>
+                        <a href='{:url("RegistrReview/edit",array("id"=>$vo["id"]))}'>审核</a> |
+                        <a class="js-ajax-delete" href="{:url('RegistrReview/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+                    <th width="50">ID</th>
+                    <th>用户名（学号）</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>头像</th>
+                    <th>学生证</th>
+                    <th>学院</th>
+                    <th>班级</th>
+                    <th>{:lang('EMAIL')}</th>
+                    <th>手机</th>
+                    <th>注册时间</th>
+                    <th>审核说明</th>
+                    <th>{:lang('STATUS')}</th>
+                    <th>{:lang('ACTIONS')}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="table-actions">
+            <button class="btn btn-primary btn-sm " type="submit" data-action="{:Url('RegistrReview/review')}" data-subcheck="true" >批量通过审核</button>
+            <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:Url('RegistrReview/delete')}" data-subcheck="true" >删除</button>
+        </div>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

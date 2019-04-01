@@ -1,0 +1,39 @@
+/* CSS Document */
+
+/*底部导航栏*/
+#footernav {
+    height: 54px;
+    line-height: 54px;
+}
+
+#footernav ul {
+    background-color: #eee;
+    box-shadow: 0 0 1px #ccc;
+}
+
+#footernav ul li a {
+    height: 54px;
+}
+
+#footernav ul li a span {
+    color: #959595;
+    font-size: 12px;
+}
+
+#footernav a [class*=am-icon]:before {
+    font-size: 21px;
+}
+
+#footernav ul li.active span {
+    color: #4285f4;
+}
+
+#footernav a img {
+    margin: 5px auto 3px;
+}
+
+#footernav a img {
+    margin: 7px auto;
+    width: 22px;
+    height: 22px;
+}

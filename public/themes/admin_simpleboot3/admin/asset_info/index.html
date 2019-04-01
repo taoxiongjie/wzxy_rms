@@ -1,0 +1,247 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('AssetInfo/index')}">资产列表</a></li>
+			<li><a href="{:url('AssetInfo/add')}">添加资产</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('AssetInfo/index')}">
+			资产名称:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$name|default=''}" placeholder="请输入资产名...">
+			关键字：
+			<input class="form-control" type="text" name="keyword" style="width: 300px;" value="{:input('request.keyword')}"
+				   placeholder="楼宇名称/楼层名称/房间名称/供应商/采购人">
+			资产类型:
+			<SELECT name="asset_type" class="form-control" style="width: 180px; height:36px; " >
+				<option value="">请选择...</option>
+				<foreach name="asset_type_data" item="vo">
+					<php>$id_selected=$type['id']==$vo['id']?"selected":"";</php>
+					<option value="{$vo.id}"{$id_selected}>{$vo.name}</option>
+				</foreach>
+			</SELECT>
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('AssetInfo/index')}">清空</a>
+			上传EXECL表格:
+			<input type="text" id="js-link-file" class="form-control" style="width: 200px" > <a href="javascript:uploadOne('请上传.xlsx表格文件','#js-link-file','file','Excel');">上传EXECL表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" class="btn btn-primary" id="upload" value="上传" />
+			<a class="btn btn-danger" href="{:url('AssetInfo/download_assetInfo')}" >下载数据文件</a>
+			<span id="tishi"></span>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('AssetInfo/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('display'=>1))}" data-subcheck="true">正常</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('hide'=>1))}" data-subcheck="true">报废</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('repair'=>1))}" data-subcheck="true">维修</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('AssetInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="50">ID</th>
+						<th>资产名称</th>
+						<th>图标</th>
+						<th>资产类型</th>
+						<th>采购人</th>
+						<th>供应商</th>
+						<th>描述</th>
+						<th>录入时间</th>
+						<th>录入人</th>
+						<th>状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<php>$AssetInfo_statuses=array("0"=>"报废","1"=>"正常","2"=>"维修","3"=>"借入","4"=>"借出");</php>
+				<foreach name="asset_info_info" item="vo">
+					<tr>
+						<td>
+							<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
+								   value="{$vo.id}" title="ID:{$vo.id}">
+						</td>
+						<td>
+							<input name="list_orders[{$vo.id}]" class="input-order" type="text"
+								   value="{$vo.list_order}">
+						</td>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td width="60">
+							<if condition=" !empty($vo['icon_url']) ">
+								<a href="javascript:parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo['icon_url'])}');">
+									<img src="{:cmf_get_asset_url($vo['icon_url'] )}" width="40" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+								</a>
+								<else/>
+								<i class="fa fa-photo fa-fw"></i>
+							</if>
+						</td>
+						<td>{$vo.asset_type_name}</td>
+						<td>{$vo.purchaser}</td>
+						<td>{$vo.supplier}</td>
+						<td>{$vo.remark}</td>
+						<td>{$vo.create_time}</td>
+						<td>{$vo.user_nickname}</td>
+						<td>{$AssetInfo_statuses[$vo['status']]}</td>
+						<td>
+								<a href='{:url("AssetInfo/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+								<a class="js-ajax-delete" href="{:url('AssetInfo/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="50">ID</th>
+						<th>资产名称</th>
+						<th>图标</th>
+						<th>资产类型</th>
+						<th>采购人</th>
+						<th>供应商</th>
+						<th>描述</th>
+						<th>录入时间</th>
+						<th>录入人</th>
+						<th>状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('display'=>1))}" data-subcheck="true">正常</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('hide'=>1))}" data-subcheck="true">报废</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('AssetInfo/toggle',array('repair'=>1))}" data-subcheck="true">维修</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('AssetInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+        $('#upload').click(function(){
+            var file_url=$('#js-link-file').val();
+            var upload=$('#upload').val();
+            if(!file_url){
+                $('#tishi').html("请上传文件!");
+                setTimeout(cleared,3000);
+            }else{
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "{:url('AssetInfo/upload_field_excel_post')}",
+                    data: {"file_url":file_url,"upload":upload},
+                    async: false,
+                    error: function(request) {
+                        alert("数据出错");
+                    },
+                    success: function(data) {
+                        var data = eval(data);
+                        if(data.status==1){
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared,2000);
+                        }
+                        else{
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared(),2000);
+                        }
+
+
+                    }
+                });
+            }
+        })
+        $('#replace').on('click', function (e) {
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                msg = $this.data('msg');
+            href = href ? href : $this.attr('href');
+            art.dialog({
+                title: false,
+                icon: 'question',
+                content: msg ? msg : '确定要替换所有数据吗？',
+                follow: $_this,
+                close: function () {
+                    $_this.focus();; //关闭时让触发弹窗的元素获取焦点
+                    return true;
+                },
+                okVal: "确定",
+                ok: function () {
+                    var file_url=$('#js-link-file').val();
+                    var upload="";
+                    if(!file_url){
+                        $('#tishi').html("请上传文件!");
+                        setTimeout(cleared,2000);
+                    }else{
+
+                        $.ajax({
+                            cache: true,
+                            type: "POST",
+                            url: "{:url('AssetInfo/upload_field_excel_post')}",
+                            data: {"file_url":file_url,"upload":upload},
+                            async: false,
+                            error: function(request) {
+                                alert("数据出错");
+                            },
+                            success: function(data) {
+                                var data = eval(data);
+                                if(data.status==1){
+                                    $('#tishi').html(data.info);
+                                    setTimeout(cleared,2000);
+                                }
+                                else{
+                                    $('#tishi').html(data.info);
+                                    setTimeout(cleared(),2000);
+                                }
+
+
+                            }
+                        });
+                    }
+                    $.getJSON(href).done(function (data) {
+                        if (data.state === 'success') {
+                            if (data.referer) {
+                                location.href = data.referer;
+                            } else {
+                                reloadPage(window);
+                            }
+                        } else if (data.state === 'fail') {
+                            //art.dialog.alert(data.info);
+                            //alert(data.info);//暂时处理方案
+                            art.dialog({
+                                content: data.info,
+                                icon: 'warning',
+                                ok: function () {
+                                    this.title(data.info);
+                                    return true;
+                                }
+                            });
+                        }
+                    });
+                },
+                cancelVal: '关闭',
+                cancel: true
+            });
+        });
+        function cleared(){
+            $('#tishi').html("");
+            $('#js-link-file').val("");
+            window.location.reload();
+        }
+
+	</script>
+</body>
+</html>

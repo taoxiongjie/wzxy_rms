@@ -1,0 +1,124 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('StationInfo/index')}">站内消息列表</a></li>
+        <li><a href="{:url('StationInfo/add')}">添加站内消息</a></li>
+        <li class="active"><a href="#">编辑站内消息</a></li>
+    </ul>
+    <form action="{:url('StationInfo/editPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th width="100">发送对象<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text"   required   value="{:implode(' ',$names)}"
+                                   placeholder="请选择发送对象" onclick="doSelectCategory();" id="js-categories-name-input"
+
+                                   readonly/>
+                            <input class="form-control" type="hidden"  value="{$user_ids}" name="student_ids"
+                                   id="js-categories-id-input"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 80px">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input id="post-id" type="hidden" name="id" value="{$post.id}">
+                            <input class="form-control" type="text" name="post_title"
+                                   id="title" required value="{$post.post_title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>内容</th>
+                        <td>
+                            <script type="text/plain" id="content" name="post_content" style="height: 500px">{$post.post_content}</script>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <th>是否发送<span class="form-required">*</span></th>
+                     <td>
+                     <div class="checkbox">
+                        <php>
+                        $status_yes=$post['post_status']==1?"checked":"";
+                        $status_no=$post['post_status']==0?"checked":"";
+                        </php>
+                        <notempty name="$post.is_read">
+                        <label><input type="radio" disabled name="post_status" value="1" {$status_yes}>发送</label>
+                        <label><input type="radio" disabled name="post_status" value="0" {$status_no} >未发送</label>
+                        <else/>
+                        <label><input type="radio"   name="post_status" value="1" {$status_yes}>发送</label>
+                        <label><input type="radio"   name="post_status" value="0" {$status_no} >未发送</label>
+                        </notempty>
+                    </div>
+                    </td>
+                  </tr>
+
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+                        <a class="btn btn-default" href="{:url('StationInfo/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err) {
+        }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+    });
+
+    function doSelectCategory() {
+        var selectedCategoriesId = $('#js-categories-id-input').val();
+        openIframeLayer("{:url('StationInfo/stu_list')}?ids=" + selectedCategoriesId, '请选择发送对象', {
+            area: ['700px', '500px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择发送对象');
+                    return;
+                }
+                $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('AdminLogin/index')}">界面信息</a></li>
+    </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20" role="form" method="post" action="{:url('AdminLogin/InfoPost')}">
+
+        <div class="form-group">
+            <label for="input-user-nickname" class="col-sm-2 control-label" style=" font-size: 24px">LOGO</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="hidden" name="options[company_url]" id="company_url" value="{$company_url|default=''}">
+                <a href="javascript:uploadOneImage('LOGO上传','#company_url','LOGO');" style="text-decoration:none;">
+                    <if condition="isset($admin_login_info['company_url']) && $admin_login_info['company_url']">
+                        <img src="{:cmf_get_asset_url($admin_login_info['company_url'])}"
+                             id="company_url-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                        <else/>
+                        <img src="__TMPL__/public/assets/images/Logo.png"
+                             id="company_url-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                    </if>
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#company_url-preview').attr('src','__TMPL__/public/assets/images/Logo.png');$('#company_url').val('');return false;" value="取消图片">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-site_icp" class="col-sm-2 control-label">平台名称</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="text" class="form-control" id="input-login_name" name="options[login_name]" value="{$login_name|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-site_icp" class="col-sm-2 control-label">版权</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="text" class="form-control" id="input-copyright" name="options[copyright]" value="{$copyright|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-site_icp" class="col-sm-2 control-label">版权链接地址</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="text" class="form-control" id="input-site_address" name="options[site_address]" value="{$site_address|default=''}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-user-nickname" class="col-sm-2 control-label">界面背景图一</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="hidden" name="options[ion_url_one]" id="ion_url_one" value="{$ion_url_one|default=''}">
+                <a href="javascript:uploadOneImage('LOGO上传','#ion_url_one','LOGO');" style="text-decoration:none;">
+                    <if condition="isset($admin_login_info['ion_url_one']) && $admin_login_info['ion_url_one']">
+                        <img src="{:cmf_get_asset_url($admin_login_info['ion_url_one'])}"
+                             id="ion_url_one-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                        <else/>
+                        <img src="__TMPL__/public/assets/images/Logo.png"
+                             id="ion_url_one-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                    </if>
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#ion_url_one-preview').attr('src','__TMPL__/public/assets/images/Logo.png');$('#ion_url_one').val('');return false;" value="取消图片">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user-nickname" class="col-sm-2 control-label">界面背景图二</label>
+            <div class="col-md-6 col-sm-10"  >
+                <input type="hidden" name="options[ion_url_two]" id="ion_url_two" value="{$ion_url_two|default=''}">
+                <a href="javascript:uploadOneImage('LOGO上传','#ion_url_two','LOGO');" style="text-decoration:none;">
+                    <if condition="isset($admin_login_info['ion_url_two']) && $admin_login_info['ion_url_two']">
+                        <img src="{:cmf_get_asset_url($admin_login_info['ion_url_two'])}"
+                             id="ion_url_two-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                        <else/>
+                        <img src="__TMPL__/public/assets/images/Logo.png"
+                             id="ion_url_two-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                    </if>
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#ion_url_two-preview').attr('src','__TMPL__/public/assets/images/Logo.png');$('#ion_url_two').val('');return false;" value="取消图片">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-user-nickname" class="col-sm-2 control-label">界面背景图三</label>
+            <div class="col-md-6 col-sm-10" >
+                <input type="hidden" name="options[ion_url_three]" id="ion_url_three" value="{$ion_url_three|default=''}">
+                <a href="javascript:uploadOneImage('LOGO上传','#ion_url_three','LOGO');" style="text-decoration:none;">
+                    <if condition="isset($admin_login_info['ion_url_three']) && $admin_login_info['ion_url_three']">
+                        <img src="{:cmf_get_asset_url($admin_login_info['ion_url_three'])}"
+                             id="ion_url_three-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                        <else/>
+                        <img src="__TMPL__/public/assets/images/Logo.png"
+                             id="ion_url_three-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                    </if>
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#ion_url_three-preview').attr('src','__TMPL__/public/assets/images/Logo.png');$('#ion_url_three').val('');return false;" value="取消图片">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

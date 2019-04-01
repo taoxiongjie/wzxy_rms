@@ -1,0 +1,119 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('BulletinManage/index')}">公告列表</a></li>
+        <li><a href="{:url('BulletinManage/add')}">添加公告</a></li>
+        <li class="active"><a href="#">编辑公告</a></li>
+    </ul>
+    <form action="{:url('BulletinManage/editPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th><b>缩略图</b></th>
+                        <td>
+                            <div >
+                                <input type="hidden" name="icon_url" id="icon_url" value="{$post.icon_url}">
+                                <a href="javascript:uploadOneImage('图片上传','#icon_url','Image');" style="text-decoration:none;">
+                                    <if condition="isset($post['icon_url']) && $post['icon_url']">
+                                        <img src="{:cmf_get_asset_url($post['icon_url'])}"
+                                             id="icon_url-preview"
+                                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                                        <else/>
+                                        <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                             id="icon_url-preview"
+                                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                                    </if>
+                                </a>
+                                <input type="button" class="btn btn-primary" onclick="$('#icon_url-preview').attr('src','__TMPL__/public/assets/images/default-thumbnail.png');$('#icon_url').val('');return false;" value="取消图片">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 80px">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input id="post-id" type="hidden" name="id" value="{$post.id}">
+                            <input class="form-control" type="text" name="post_title"
+                                   id="title" required value="{$post.post_title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>排序<span class="form-required">*</span></th>
+                        <td>
+                        <input class="form-control" type="text" name="list_order" id="title"  value="{$post.list_order}"/>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>是否发布<span class="form-required">*</span></th>
+                     <td>
+                     <div class="checkbox">
+                        <php>
+                        $status_yes=$post['post_status']==1?"checked":"";
+                        $status_no=$post['post_status']==0?"checked":"";
+                        </php>
+                        <label><input type="radio" name="post_status" value="1" {$status_yes}>发布</label>
+                        <label><input type="radio" name="post_status" value="0" {$status_no} >未发布</label>
+                    </div>
+                    </td>
+                  </tr>
+                    <tr>
+                        <th>是否顶置<span class="form-required">*</span></th>
+                        <td>
+                            <div class="checkbox">
+                                <php>
+                                $is_top_yes=$post['is_top']==1?"checked":"";
+                                $is_top_no=$post['is_top']==0?"checked":"";
+                                </php>
+                                <label><input type="radio" name="is_top" value="1" {$is_top_yes}>顶置</label>
+                                <label><input type="radio" name="is_top" value="0" {$is_top_no} >未顶置</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>内容</th>
+                        <td>
+                        <script type="text/plain" id="content" name="post_content" style="height: 500px">{$post.post_content}</script>
+                        </td>
+                     </tr>
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+                        <a class="btn btn-default" href="{:url('BulletinManage/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err)
+        {
+        }
+    });
+
+
+</script>
+</body>
+</html>

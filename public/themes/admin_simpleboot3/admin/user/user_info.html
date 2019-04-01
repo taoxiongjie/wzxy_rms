@@ -1,0 +1,127 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('user/userInfo')}">{:lang('ADMIN_USER_USERINFO')}</a></li>
+			<li><a href="{:url('setting/password')}">{:lang('ADMIN_SETTING_PASSWORD')}</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form margin-top-20" role="form" method="post" action="{:url('User/userinfoPost')}">
+
+			<div class="form-group">
+				<label for="input-user-nickname" class="col-sm-2 control-label">头像</label>
+				<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="avatar" id="avatar" value="{$avatar}">
+						<a href="javascript:uploadOneImage('头像上传','#avatar','Avatar');" style="text-decoration:none;">
+							<if condition="isset($user['avatar']) && $user['avatar']">
+								<img src="{:cmf_get_asset_url($user['avatar'])}"
+									 id="avatar-preview"
+									 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+								<else/>
+								<img src="__TMPL__/public/assets/images/headicon.png"
+									 id="avatar-preview"
+									 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+							</if>
+
+						</a>
+					<input type="button" class="btn btn-primary" onclick="$('#avatar-preview').attr('src','__TMPL__/public/assets/images/headicon.png');$('#avatar').val('');return false;" value="取消图片">
+				</div>
+			</div>
+			<if condition="$user_type eq 4">
+				<div class="form-group">
+					<label for="input-user-nickname" class="col-sm-2 control-label">学生证</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="hidden" name="student_card" id="student_card" value="{$student_card}">
+						<a href="javascript:uploadOneImage('学生证上传','#student_card','Avatar');" style="text-decoration:none;">
+							<if condition="isset($user['student_card']) && $user['student_card']">
+								<img src="{:cmf_get_asset_url($user['student_card'])}"
+									 id="student_card-preview"
+									 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+								<else/>
+								<img src="__TMPL__/public/assets/images/headicon.png"
+									 id="student_card-preview"
+									 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+							</if>
+
+						</a>
+						<input type="button" class="btn btn-primary" onclick="$('#student_card-preview').attr('src','__TMPL__/public/assets/images/headicon.png');$('#student_card').val('');return false;" value="取消图片">
+					</div>
+				</div>
+			</if>
+			<div class="form-group">
+				<label for="input-user-nickname" class="col-sm-2 control-label">{:lang('NICKNAME')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user-nickname" name="user_nickname" value="{$user_nickname}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-gender" class="col-sm-2 control-label">{:lang('GENDER')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="sex" id="input-gender">
+						<php>$sexs=array("0"=>lang('GENDER_SECRECY'),"1"=>lang('MALE'),"2"=>lang('FEMALE'));</php>
+						<foreach name="sexs" item="vo">
+							<php>$sexselected=$key==$sex?"selected":"";</php>
+							<option value="{$key}" {$sexselected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="college" class="col-sm-2 control-label">学院</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="college" name="college" value="{$college}">
+				</div>
+			</div>
+			<if condition="$user_type eq 4">
+			<div class="form-group">
+				<label for="class" class="col-sm-2 control-label">班级</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="class" name="class" value="{$class}">
+				</div>
+			</div>
+			</if>
+			<if condition="$user_type neq 4">
+				<div class="form-group">
+					<label for="job_title" class="col-sm-2 control-label">职称</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="job_title" name="job_title" value="{$job_title}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="position" class="col-sm-2 control-label">职位</label>
+					<div class="col-md-6 col-sm-10">
+						<input type="text" class="form-control" id="position" name="position" value="{$position}">
+					</div>
+				</div>
+			</if>
+			<div class="form-group">
+				<label for="input-user-nickname" class="col-sm-2 control-label">邮箱</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user-nickname" name="user_email" value="{$user_email}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user-nickname" class="col-sm-2 control-label">手机</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user-nickname" name="mobile" value="{$mobile}">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="input-signature" class="col-sm-2 control-label">{:lang('SIGNATURE')}</label>
+				<div class="col-md-6 col-sm-10">
+					<textarea class="form-control" id="input-signature" name="signature" placeholder="{:lang('SIGNATURE')}"  >{$signature} </textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

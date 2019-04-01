@@ -1,0 +1,113 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('user/index')}">{:lang('ADMIN_USER_INDEX')}</a></li>
+			<li><a href="{:url('user/add')}">{:lang('ADMIN_USER_ADD')}</a></li>
+			<li class="active"><a>编辑管理员</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('User/editPost')}">
+			<div class="form-group">
+				<label for="input-user-nickname" class="col-sm-2 control-label">头像</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="hidden" name="avatar" id="avatar" value="{$avatar}">
+					<input type="hidden" name="avatar_old"   value="{$avatar}">
+					<a href="javascript:uploadOneImage('头像上传','#avatar','Avatar');" style="text-decoration:none;">
+						<if condition="isset($avatar) && $avatar">
+							<img src="{:cmf_get_asset_url($avatar)}"
+								 id="avatar-preview"
+								 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+							<else/>
+							<img src="__TMPL__/public/assets/images/headicon.png"
+								 id="avatar-preview"
+								 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+						</if>
+
+					</a>
+					<input type="button" class="btn btn-primary" onclick="$('#avatar-preview').attr('src','__TMPL__/public/assets/images/headicon.png');$('#avatar').val('');return false;" value="取消图片">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>用户名（工号/学号）</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user_login" name="user_login" value="{$user_login}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>真实昵称</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user_nickname" name="user_nickname" value="{$user_nickname}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-gender" class="col-sm-2 control-label">{:lang('GENDER')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="sex" id="input-gender">
+						<php>$sexs=array("0"=>lang('GENDER_SECRECY'),"1"=>lang('MALE'),"2"=>lang('FEMALE'));</php>
+						<foreach name="sexs" item="vo">
+							<php>$sexselected=$key==$sex?"selected":"";</php>
+							<option value="{$key}" {$sexselected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>学院</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-college" name="college" value="{$college}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label">专业（班别）</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-position" name="class" value="{$class}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"> 职位</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-position" name="position" value="{$position}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"> 职称</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-job_title" name="job_title" value="{$job_title}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>手机</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-mobile" name="mobile" value="{$mobile}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_email" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('EMAIL')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user_email" name="user_email" value="{$user_email}">
+				</div>
+			</div>
+			<!--<div class="form-group">
+				<label for="input-user_email" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ROLE')}</label>
+				<div class="col-md-6 col-sm-10">
+					<foreach name="roles" item="vo">
+						<label class="checkbox-inline">
+							<php>$role_id_checked=in_array($vo['id'],$role_ids)?"checked":"";</php>
+							<input value="{$vo.id}" type="radio" name="role_id" {$role_id_checked} <if condition="cmf_get_current_admin_id() neq 1 && $vo['id'] eq 1">disabled="true"</if>>{$vo.name}
+						</label>
+					</foreach>
+				</div>
+			</div>-->
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

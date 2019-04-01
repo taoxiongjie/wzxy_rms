@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>盘点管理</title>
+<tc_include file="Public:head" />
+<link href="__TMPL__/public/css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/css/treeview.css">
+
+<script src="__ROOT__/Public/js/nicescroll.js"></script>
+<script src="__ROOT__/Public/js/jquery.treeview.js"></script>
+<script src="__ROOT__/Public/js/cookie.js"></script>
+<script src="__ROOT__/Public/js/common_console.js"></script>
+<script src="__ROOT__/Public/js/echarts/Newecharts.min.js"></script>
+</head>
+<body>
+<div class="InventoryManagement-box">
+	<div class="content-box assets_content_box">
+        <div class="assets_content">
+        	<div class="result">
+        		<label>您需要盘点的资产如下:</label>
+        		<span> </span>
+        	</div>
+        	 <div class="result_content_box">
+
+		   </div>
+		   <div class="bottom_btn_box">
+			<a  class="load" href='{:url("Inventory/download_field_excel",array("taskId"=>"" ,"projectId"=>"" ))}'>导出Execl</a>
+			<div class="row-fluid">
+				<div class="span12">
+					<table class="table table-bordered">
+						<tr>
+							<td>
+							    <input type="text" name="file_url" id="js-link-file"> <a href="javascript:upload_one('请上传.xls表格文件','#js-link-file','file','project_excel');">上传表格文件</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F00">
+								<input  type="hidden" id="taskId"  value=" ">
+								<input  type="hidden" id="projectId"  value=" ">
+								<button class="complete" >完成盘点任务</button>
+							</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		   </div>
+        </div>
+	</div> 
+</div>		
+</body>
+<script type="text/javascript">
+	function clearResult(){
+		$("#js-link-file").val('');
+		$('#tishi').html('');
+		}
+	$(".complete").click(function(){
+
+	     var file = $("#js-link-file").val();
+	     if(file ==  null || file == ''){
+	    	 artdialog_warning('请上传盘点文件')       
+	          return false;
+	     }
+	     else{  
+		     var taskId =$("#taskId").val();
+			 var projectId=$("#projectId").val();	     
+		     $.ajax({
+		 		cache: true,
+		 		type: "POST",
+		 		url: GV.ROOT+"Inventory/upload_field_excel_post",
+		 		data: {"file":file,"projectId":projectId,"taskId":taskId},
+		 		async: false,
+		 		error: function(request) {
+		 			$('#tishi').html('数据出错');
+		 		},
+		 	   success: function(data) {
+		 			var retInfo = eval(data);
+		 			if(1==retInfo.status){
+		 				artdialog_succeed(retInfo.info);
+		 			}else{
+		 				artdialog_warning(retInfo.info);
+		 			}
+		 			clearResult(); 
+		 	 	}		 	 
+		     });
+	     }
+	 });
+
+
+		 	
+	$(".result_count").click(function(){
+		$(this).toggleClass('close').toggleClass('open');
+		$(this).parent().find(".table").slideToggle("fast");
+	});
+	$(".result_content_box").niceScroll({
+			    cursorcolor:"#61c3cb",
+			    cursorwidth:"6px",
+			    cursoropacitymin:"0.5",
+			    railpadding: { top:0, right:1, left:0, bottom:0},
+			  });
+</script>
+</html>

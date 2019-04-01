@@ -1,0 +1,55 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="__TMPL__/public/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/treeview.css">
+
+	<script src="__STATIC__/js/jquery.js"></script>
+	<script src="__STATIC__/js/layer/layer.js"></script>
+	<script src="__TMPL__/public/js/nicescroll.js"></script>
+	<script src="__TMPL__/public/js/jquery.treeview.js"></script>
+	<script src="__TMPL__/public/js/cookie.js"></script>
+
+	<script src="__TMPL__/public/js/common_console.js"></script>
+	<script src="__TMPL__/public/js/echarts/Newecharts.min.js"></script>
+</head>
+<body>
+<div class="InventoryManagement-box">
+	<div class="content-box assets_content_box">
+
+        <include file="public@complex_statistics_menu"/>
+		<div class="assets_content">
+
+			<div class="result">
+				<label style="font-size: 15px">结果:</label>
+				<span id="sumTip" style="font-size: 15px"></span>
+				<!--<button>导出Excel</button>-->
+			</div>
+			<!-- searche_result_container-->
+			<div id="searche_result_container">
+
+			</div><!-- searche_result_container end-->
+
+			<div class="result_content">
+				<div class="table first">
+					<table border="1" cellspacing="0" id="data_table_box">
+
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).on("click", ".result_count", function(){
+
+        $(this).toggleClass('close').toggleClass('open');
+        $(this).parent().find(".table").slideToggle("fast");
+
+    }); // jQuery 1.7+
+</script>
+</html>

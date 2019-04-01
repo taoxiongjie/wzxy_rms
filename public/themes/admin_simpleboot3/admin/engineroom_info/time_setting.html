@@ -1,0 +1,64 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('EngineroomInfo/index')}">机房列表</a></li>
+			<li class="active"><a>开放时间设置</a></li>
+			<li><a href="{:url('OpenTimeInfo/index',array('mark'=>$mark))}">时间段设置</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20"  method="post" action="{:url('EngineroomInfo/index')}">
+
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('EngineroomInfo/time_setting_post')}">
+			<table class="table table-hover table-bordered table-list" style="width: 50%">
+				<thead>
+					<tr   >
+						<th style="text-align: center">开放时间</th>
+						<th style="text-align: center">星期一</th>
+						<th style="text-align: center">星期二</th>
+						<th style="text-align: center">星期三</th>
+						<th style="text-align: center">星期四</th>
+						<th style="text-align: center">星期五</th>
+						<th style="text-align: center">星期六</th>
+						<th style="text-align: center">星期日</th>
+					</tr>
+				</thead>
+				<tbody>
+				<foreach name="time" item="vo">
+					<tr>
+						<td height="26" width="60" align="center" bgcolor="#F7FAFF">{$vo.start_time}-{$vo.end_time}</td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[mon_{$vo.id}]" style="width:20px;" value="1" <if condition="$vo['mon'] eq 1 "> checked="checked"</if>></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[tues_{$vo.id}]" style="width:20px;" value="1"<if condition="$vo['tues'] eq 1 "> checked="checked"</if> ></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[wed_{$vo.id}]" style="width:20px;" value="1"  <if condition="$vo['wed'] eq 1 "> checked="checked"</if>></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[thur_{$vo.id}]" style="width:20px;" value="1" <if condition="$vo['thur'] eq 1 ">checked="checked" </if> ></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[fri_{$vo.id}]" style="width:20px;" value="1" <if condition="$vo['fri'] eq 1 ">checked="checked" </if> ></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[sat_{$vo.id}]" style="width:20px;" value="1" <if condition="$vo['sat'] eq 1 "> checked="checked"</if>></td>
+						<td height="26" width="30" align="center" bgcolor="#F7FAFF"><input type="checkbox" name="{$vo.id}[sun_{$vo.id}]" style="width:20px;" value="1" <if condition="$vo['sun'] eq 1 "> checked="checked"</if> ></td>
+					</tr>
+				</foreach>
+
+				</tbody>
+				<tfoot>
+				<tr>
+					<th style="text-align: center">开放时间</th>
+					<th style="text-align: center">星期一</th>
+					<th style="text-align: center">星期二</th>
+					<th style="text-align: center">星期三</th>
+					<th style="text-align: center">星期四</th>
+					<th style="text-align: center">星期五</th>
+					<th style="text-align: center">星期六</th>
+					<th style="text-align: center">星期日</th>
+				</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<input type="hidden" name="mark" value="{$mark}" />
+				<button type="submit" class="btn btn-primary  js-ajax-submit">保存</button>
+			</div>
+		</form>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

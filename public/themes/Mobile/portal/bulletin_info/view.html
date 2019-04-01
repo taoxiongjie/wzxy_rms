@@ -1,0 +1,89 @@
+<html class="am-touch js cssanimations"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=0.5,user-scalable=no">
+    <title>实验室预约开放平台</title>
+    <script src="__TMPL__/public/plugins/amazeui-2.4/js/jquery.min.js"></script>
+    <script src="__TMPL__/public/plugins/amazeui-2.4/js/amazeui.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="__TMPL__/public/plugins/amazeui-2.4/css/amazeui.min.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.mobile.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/header.mobile.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/footer.mobile.css">
+</head>
+
+<body class="am-with-fixed-navbar">
+<div id="view">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/css/subject.mobile.css?0.2.1">
+    <div id="bdzjdetail" class="main">
+        <p class="zixun-return">
+            <a href="javascript:history.back(-1);" class="am-icon-angle-left am-icon-md">返回</a>
+
+            <span class="right-icon-spare am-icon-angle-right am-icon-md" style="display: none;"></span>
+        </p>
+
+        <div class="main-head">
+            <div class="title">
+                <h1>{$article.post_title}</h1>
+            </div>
+            <p class="head">
+                <span class="head-sign">智</span> 互联网周刊&nbsp;&nbsp;
+                <span>{:date('Y-m-d',$article.update_time)}</span>
+            </p>
+        </div>
+        <div class="main-text">
+            <if condition=" !empty($article.icon_url) ">
+                <img class="main-text-img" src="{:cmf_get_asset_url($article.icon_url)}">
+                <else/>
+                <img class="main-text-img" src="__TMPL__/public/images/new.jpg" >
+            </if>
+        </div>
+        <div class="main-text">
+            {$article.post_content}
+            <hr>
+            <div style="text-align:right;">
+                文章来源：大数据与软件学院
+            </div>
+        </div>
+
+
+
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-no-layout" id="footernav">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li name="home">
+                <a onclick="location.href='/'">
+                    <img src="__TMPL__/public/images/mobile/home.png" width="35" class="home" >
+                    <img src="__TMPL__/public/images/mobile/home-blue.png" width="35" class="home-blue zd-hidden">
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li name="c">
+                <a onclick="location.href='/c?tag=2016中国500强'">
+                    <img src="__TMPL__/public/images/mobile/tags.png" width="35" class="company">
+                    <img src="__TMPL__/public/images/mobile/tags-blue.png" width="35" class="company-blue zd-hidden">
+                    <span class="am-navbar-label">预约</span>
+                </a>
+            </li>
+            <li class="active"  name="news">
+                <a href="{:url('portal/BulletinInfo/index')}">
+                    <img src="__TMPL__/public/images/mobile/find.png" width="35" class="news" style="display: none;">
+                    <img src="__TMPL__/public/images/mobile/find-blue.png" width="35" class="news-blue zd-hidden"  style="display: inline;">
+                    <span class="am-navbar-label">公告</span>
+                </a>
+            </li>
+            <li name="user">
+                <a href="{:url('portal/user/index')}">
+                    <img src="__TMPL__/public/images/mobile/user.png" width="35" class="user">
+                    <img src="__TMPL__/public/images/mobile/user-blue.png" width="35" class="user-blue zd-hidden">
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<script src="__TMPL__/public/plugins/jquery.cookie.js"></script>
+<script src="__TMPL__/public/js/zhidaoii.mobile.js"></script>
+</body></html>

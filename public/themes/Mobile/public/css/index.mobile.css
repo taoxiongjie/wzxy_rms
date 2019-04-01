@@ -1,0 +1,382 @@
+body {
+    padding-bottom: 49px;
+}
+/*顶部样式*/
+.toptitle {
+    padding: 0;
+    width: 100%;
+    height: auto;
+    color: #fff;
+    position: absolute;
+    top: 75px;
+    clear: both;
+    overflow-x: hidden;
+}
+.toptitle .zdtitle {
+    display: inline-block;
+}
+.am-list-news-default{
+    margin: 0;
+}
+.toptitle .logo-white {
+    /*margin: 15px 2px 0 2px;*/
+    position: absolute;
+    top: -7px;
+    left: -20px;
+}
+.toptitle .search-form-container {
+    width: 100%;
+    display: block;
+    height: auto;
+    left: 50%;
+    margin-left: -150px;
+    position: relative;
+    overflow: hidden;
+}
+.toptitle .search-form-container form{
+    width: 80%;
+    height: auto;
+    clear: both;
+    overflow: hidden;
+}
+#search-form input,#submit-form input ,#sub-form input{
+    border: none;
+    font-size: 15px;
+    line-height: 24px;
+    box-shadow: none;
+    height: 38px;
+    background-color: #fff;
+}
+#search-form button,#submit-form button,#sub-form button {
+    border: none;
+    background-color: #fff;
+}
+#search-form .am-icon-search {
+    display: block;
+    margin-top: -5px;
+}
+.mobile-index #search-form ul li .active {
+    color: #4285f4;
+}
+#search-form input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #999;
+    opacity: 1;
+}
+.am-input-group-btn {
+    height: 38px;
+    line-height: 38px;
+}
+ul#searchtype {
+    display: block;
+    margin: 0 auto;
+    list-style: none;
+    clear: both;
+    overflow: hidden;
+    width: 80%;
+    height: auto;
+    padding: 0 0 0 10px;
+    position: relative;
+}
+ul#searchtype li {
+    float: left;
+    padding: 5px 10px 15px;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    height: auto;
+}
+/*#searchtype .active a {
+    color: #4285f4;
+}*/
+#searchtype a{
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: #ddd;
+    font-size: 15px;
+}
+/*ul#searchtype li:first-child a::after {
+    border-right: 1px solid #fff;
+    content: "";
+    position: absolute;
+    left: 60px;
+    top: 18px;
+    bottom: 2px;
+}*/
+#searchtype .active span{
+    left: 50%;
+    float: left;
+    margin-left: -10px;
+    top: 35px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+/*主体内容*/
+.mobile-index {
+    background-color: #ececec;
+    overflow: hidden;
+}
+.mb-bantext {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -150px;
+}
+.mb-header {
+    background: #ececec url(../images/mobile/bannerBJ.jpg) no-repeat left top;
+    background-size: cover;
+    width: 100%;
+    height: 195px;
+}
+.mb-keywords, .mb-company {
+    margin-bottom: 10px;
+}
+.mb-keywords, .mb-company, .mb-subject, .mbshow-allnum {
+    background: #fff;
+}
+.bannertext {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 20px;
+}
+.mbshow-allnum {
+    margin: 10px auto 0;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    padding: 10px;
+    height: 126px;
+}
+.mbshow-allnum span {
+    color: #3f3f3f;
+    /* margin-right: 5px; */
+    /* font-weight: 700; */
+    font-size: 17px;
+    margin-top: 2px;
+    display: inline-block;
+}
+.mbshow-allnum div {
+    padding: 0 5px;
+    color: #a4a9b0;
+    font-size: 15px;
+}
+/*热门搜索*/
+.mb-keywords {
+    padding-bottom: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.mb-keywords .am-list {
+    margin: 0;
+   /* padding: 0 5px;
+    text-align: center;*/
+}
+.mb-keywords li {
+
+    display: inline-block;
+    border: 0;
+    padding: 5px 0;
+    margin: 5px;
+   /* background-color: #f7f7f7;*/
+}
+.mb-keywords .kwtitle {
+    display: block;
+    padding: 0 10px;
+    color: #333;
+}
+.mb-keywords .kwtitle:hover, .mb-keywords .kwtitle:focus {
+    color: #ffae00;
+}
+/*每一部分的title*/
+.mobile-index .am-titlebar-default .am-titlebar-title:before {
+    border-left-width: 0;
+}
+.mobile-index .am-titlebar-title {
+    border-bottom: 1px solid #ececec;
+    text-align: left;
+    font-size: 16px;
+    color: #3f3f3f;
+    margin-bottom: 10px;
+    padding: 7px 0 7px 10px;
+    font-weight: 500;
+}
+.mobile-index .am-titlebar-title .keyword-more {
+    float: right;
+    margin-right: 15px;
+    font-size: 14px;
+    color: #666;
+    line-height: 30px;
+}
+.mobile-index .am-titlebar-title .keyword-more span {
+    color: #ccc;
+    margin-left: 2px;
+}
+.mobile-index .am-titlebar-title a {
+    color: #555;
+}
+.mobile-index .am-titlebar-title a:hover {
+    color: #ffae00;
+}
+/*榜单专辑*/
+.mobile-index .mb-subject .am-titlebar-title {
+    margin-bottom: 0;
+}
+.mb-subject .am-list .am-list-item-desced {
+    padding: 17px;
+    border-bottom: 0;
+    min-height: 85px;
+}
+.mb-subject .am-list li:nth-child(1){
+    border-top: 0;
+}
+.mb-subject .am-list li:nth-child(2) {
+    border-top: 1px solid #eee;
+    /*border-bottom: 2px solid #eee;*/
+}
+.mb-subject .am-list a {
+    display: block;
+}
+.mb-subject .am-list .am-list-main a {
+    color: #333;
+    font-weight: 500;
+    font-size: 17px;
+}
+.mb-subject .am-list .am-list-main a:hover, .mb-subject .am-list .am-list-main a:focus {
+    color: #fc7e15;
+}
+.mb-subject .am-list .am-list-main .am-list-item-text {
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.toptitle .zdtitle a {
+    color: #fff;
+    position: relative;
+    margin-left: 21px;}
+/*小屏幕的福利     iphone5&5*/
+@media screen and (max-width: 350px) {
+    .mbshow-allnum div {
+        padding: 0 2px;
+        color: #a4a9b0;
+    }
+    .mbshow-allnum {
+        font-size: 12px;
+        padding: 10px 5px;
+    }
+    .mbshow-allnum span {
+        font-size: 14px;
+    }
+    .bannertext, .banner-text {
+        width: 100%;
+        /*margin-left: -144px;*/
+        top: 0;
+        font-size: 16px;
+    }
+    .mobile-index .banner-text {
+        top: 60px;
+    }
+    .mobile-index .banner-wenzi {
+        top: 100px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .main-contain .am-container .am-tabs #mobile-tablist {
+        width: 90px;
+        height: 319px;
+    }
+    /*首页*/
+    .mb-header {
+        height: 180px;
+    }
+    .mobile-index .am-titlebar-title {
+        font-size: 13px;
+    }
+    .mobile-index .am-titlebar-title .keyword-more {
+        line-height: 20px;
+        font-size: 10px;
+        margin-right: 10px;
+    }
+    .mb-keywords .am-list li {
+        margin: 5px 4px;
+        padding: 0;
+    }
+    .mb-keywords .am-list li a {
+        font-size: 13px;
+        padding: 0 5px;
+    }
+    /*.toptitle .search-form-container {
+        margin-right: 15px;
+    }*/
+    #search-form button, #submit-form button, #sub-form button {
+        height: 27px;
+        line-height: 18px;
+    }
+    #search-form input, #submit-form input, #sub-form input {
+        height: 27px;
+        font-size: 13px;
+    }
+    #searchtype a{
+        font-size: 13px;
+        width: 60px;
+    }
+    ul#searchtype li{
+        /*height: 27px;*/
+        margin-top: 6px;
+    }
+    .mb-com-search {
+        height: 15px;
+    }
+    .toptitle .logo-white {
+        margin: 0px 3px 0 -6px;
+        height: 29px;
+        width: auto;
+    }
+    .toptitle .zdtitle a {
+        font-size: 13px;
+        color: #fff;
+    }
+    .toptitle .zdtitle {
+        margin-top: 4px;
+    }
+    .am-input-group-btn{
+        height: 27px;
+        line-height:27px;
+    }
+    .toptitle .search-form-container{
+        margin-left: -128px;
+    }
+
+}
+/*iphone6*/
+@media screen and (min-width: 350px) and (max-width: 376px) {
+    .mbshow-allnum {
+        font-size: 14px;
+        padding: 8px 0 5px 10px;
+    }
+}
+.description{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
+    margin-top: 5px;
+}
+#abstract p{
+    margin: 0;
+    display: inline;
+}
+ul#subjectlist li {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

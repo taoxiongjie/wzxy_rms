@@ -1,0 +1,51 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">消息列表</a></li>
+    </ul>
+
+    <form class="js-ajax-form" action="" method="post">
+
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                 <th>标题</th>
+
+                <th>发送者</th>
+                <th>发布时间</th>
+                <th >是否阅读状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <foreach name="articles" item="vo">
+                <notempty name="vo.post_title">
+                    <tr>
+                        <td> {$vo.post_title}</td>
+                        <td>{$vo.teacher_name}</td>
+                        <td>{:date('Y-m-d H:i',$vo['create_time'])}</td>
+                        <td>
+                            <notempty name="vo.is_read">
+                                <a data-toggle="tooltip" title="已阅读"><i class="fa fa-check"></i></a>
+                                <else/>
+                                <a data-toggle="tooltip" title="未阅读"><i class="fa fa-close"></i></a>
+                            </notempty>
+                        </td>
+                        <td>
+                            <a href="{:url('MyMessage/view',array('id'=>$vo['id']))}">查看</a>
+                        </td>
+                    </tr>
+                </notempty>
+            </foreach>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+        <ul class="pagination">{$page|default=''}</ul>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

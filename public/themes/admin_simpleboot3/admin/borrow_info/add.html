@@ -1,0 +1,167 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('BorrowInfo/index')}">借入信息列表</a></li>
+        <li class="active"><a href="{:url('BorrowInfo/add')}">添加借入信息</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('BorrowInfo/addpost')}">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label">图标</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="hidden" name="icon_url" id="icon_url"  >
+                <a href="javascript:uploadOneImage('图片上传','#icon_url','Image');" style="text-decoration:none;">
+                    <img src="__TMPL__/public/assets/images/headicon.png"
+                         id="icon_url-preview"
+                         width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#icon_url-preview').attr('src','__TMPL__/public/assets/images/headicon.png');$('#icon_url').val('');return false;" value="取消图片">
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>资产名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">资产类型:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="asset_type" class="form-control">
+                    <option   >请选择</option>
+                    <foreach name="asset_type_data"   item="vo">
+                        <option value="{$vo.id}" >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼宇:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="b_mark" id="b_mark" class="form-control">
+                    <option  value="" >请选择</option>
+                    <foreach name="building_data"   item="vo">
+                        <option value="{$vo.mark}" >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼层:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="f_mark" id="f_mark" class="form-control">
+                    <option  value="" >请选择</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属教室:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="r_mark" id="r_mark" class="form-control">
+                    <option  value="" >请选择</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>资产型号</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-asset_num" name="asset_num" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>功耗(W)</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-power" name="power" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>载重(KG)</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-weight" name="weight" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>借入人</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-borrower_name" name="borrower_name" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>起始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-start_time" name="start_time"   >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>终止时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-stop_time" name="stop_time"   >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>借入信息</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" style="height: 300px"  name="remark" id="input-remark"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $("#b_mark").change(function() {
+        var b_mark = $("#b_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('BorrowInfo/floor_data_post')}",
+            data: {b_mark:b_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#f_mark").html(con);
+
+            }
+        });
+
+    });
+    $("#f_mark").change(function() {
+        var f_mark = $("#f_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('BorrowInfo/room_data_post')}",
+            data: {f_mark:f_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#r_mark").html(con);
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

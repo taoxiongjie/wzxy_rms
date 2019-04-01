@@ -1,0 +1,360 @@
+.am-container {
+    width: 1200px !important;
+    max-width: none;
+}
+.am-dropdown-content {
+    min-width: 150px;
+    margin: 7px 0 0 0;
+}
+[class*='am-icon-']:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased
+}
+/*导航栏分类*/
+.logo {
+    /*background: url("/images/zhidaoii.png") no-repeat left center;*/
+    /*width: 130px;*/
+    height: 60px;
+    line-height: 60px;
+}
+#home-mainnav {
+    display: inline-block;
+    margin: 0;
+    overflow: visible;
+    list-style: none;
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+}
+#home-mainnav li {
+    float: left;
+}
+#home-mainnav a {
+    /*color: #666;*/
+    color: #0c0c25;
+    display: block;
+    font-size: 18px;
+    padding: 5px 20px 0;
+}
+#home-mainnav .am-dropdown-content {
+    margin-top: 0;
+    padding: 0;
+    display: none;
+}
+#home-mainnav .am-dropdown-content li {
+    width: 100%;
+}
+#home-mainnav .am-dropdown-content a {
+    color: #fff;
+    border-bottom-width: 0;
+    padding: 9px 48px 9px 22px;
+    font-size: 15px;
+}
+#home-mainnav .am-dropdown-content a:hover {
+    color: #4285f4;
+}
+#home-mainnav .am-dropdown-content a span {
+    color: #4285f4;
+}
+#home-mainnav .am-dropdown-content a:hover span {
+    color: #4285f4;
+}
+#home-mainnav .am-dropdown-content:before {
+    left: 53px;
+}
+/*右侧登录注册*/
+/*#zd-topbar-right {*/
+/*position: absolute;*/
+/*top: 20px;*/
+/*right: 0;*/
+/*font-size: 18px;*/
+/*}*/
+#zd-topbar-right ul {
+    float: right;
+    margin: 2px 1px 0 1.8rem;
+    padding: 0;
+}
+.headnav #toplogin .home-btn {
+    color: #4285f4;
+    height: 34px;
+    line-height: 31px;
+    margin-top: 0;
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 15px;
+    border: 1px solid #4285f4;
+}
+.headnav #toplogin .home-btn:hover {
+    background-color: #4285f4;
+    color: #fff;
+}
+#zd-topbar-right .am-dropdown > a {
+    color: #666;
+    height: 34px;
+    line-height: 31px;
+    display: inline-block;
+}
+/*其他页面的导航栏*/
+.am-topbar {
+    height: 100px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 1200px;
+}
+header.topbar-new {
+    /*background-color: rgba(0, 0, 0, 0);*/
+    z-index: 999;
+    width: 100%;
+    padding-top: 20px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+}
+.am-topbar .am-container {
+    margin-top: 3px;
+}
+.topbar-new .am-container {
+    overflow: visible;
+    height: 60px;
+    /*line-height: 60px;*/
+}
+.am-topbar a {
+    color: #666;
+    font-size: 16px;
+}
+#home-mainnav a:hover, #home-mainnav .am-active a {
+    color: #4285f4;
+}
+/*最顶部导航*/
+#search-navform {
+    font-size: 1.2rem;
+    vertical-align: middle
+}
+#search-form .am-input-group-btn {
+    float: left
+}
+/*头部搜索框*/
+/*.am-topbar-btn, #search-form input {
+    margin-top: 8px
+}*/
+.am-topbar-right {
+    margin: 5px 0 0 0
+}
+.am-topbar-right form {
+    /*float: right;*/
+    /*margin-right: 2.5rem;*/
+    display: inline-block;
+}
+.am-topbar-right select, #search-navform .am-selected {
+    height: 34px;
+    line-height:34px;
+    width: 60px;
+    margin-right: -18px;
+    margin-top: 20px;
+    padding: 0;
+    z-index: 3;
+    /* border: 1px solid #ccc; */
+    /*border-radius: 25px;*/
+}
+.am-topbar-right select {
+    padding: 0 0 2px 12px;
+    font-size: 12px;
+    color: #000;
+    outline: none;
+    position: relative;
+    margin-top: 0;
+    border: 1px solid #4285f4;
+    border-right: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url(/images/arrow.png) no-repeat scroll right center transparent;
+}
+select::-ms-expand{
+    display: none;
+}
+#search-navform .am-selected-btn {
+    height: 100%;
+    width: 100%;
+    font-size: 1.2rem;
+    color: #000;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 0 10px;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    display: block;
+    box-shadow: none;
+}
+#search-navform .am-topbar-btn {
+    position: absolute;
+    z-index: 99;
+    right: -37px;
+    top: 7px;
+    height: 34px;
+    width: 38px;
+    border: 0 solid #fff!important;
+    font-size: 16px;
+    background-color: #4285f4;
+    padding: 0 6px;
+    line-height: 11px;
+    margin-top: -7px;
+    color: #fff;
+}
+#search-navform .am-topbar-btn .am-icon-search {
+    font-size: 16px;
+    margin-top: -5px;
+    display: inline-block;
+    font-family: 'icon';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    vertical-align: -5%;
+    -webkit-font-smoothing: antialiased;
+}
+#search-navform .am-selected-list {
+    font-size: 1.2rem;
+    color: #4285f4;
+}
+#search-form .am-selected-list li:hover {
+    /*color: #fe8301*/
+    color: #4285f4;
+}
+#search-form .am-selected-list li.am-checked .am-icon-check {
+    /*color: #ff6d0d;*/
+    color: #4285f4;
+}
+#search-navform .am-selected-content {
+    padding: 2px 0;
+    min-width: 60px
+}
+#search-navform #search-form input,#submit-form input,#sub-form input{
+    width: 120px;
+    min-width: 252px;
+    vertical-align: middle;
+    border-width: 1px;
+    margin: 0 1px 0 0;
+    height: 34px;
+    padding: 6px 12px 6px 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-color: #4285f4;
+    border-left: none;
+}
+#submit-form,#sub-form{
+    margin-bottom: 2px;
+}
+/*#search-form input:focus {
+    border-color: #ccc;
+}*/
+#search-navform .am-selected-icon {
+    margin-left: -3px
+}
+/*#search-form .am-btn:active, #search-form .am-btn.am-active, #search-form input:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none
+}*/
+#search-navform .am-form-select,#search-navform .am-input-group{
+    height: 34px;
+    /*line-height: 34px;*/
+    float: left;
+    /*margin-top: 19px;*/
+}
+.zhidao-topbar-right {
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-size: 1.2rem
+}
+.zhidao-topbar-right a {
+    color: #fff;
+    padding: 7px 10px
+}
+.zhidao-topbar-right li a:hover {
+    background-color: #fe8301;
+    border-color: #fe8301
+}
+.zhidao-topbar-right .am-dropdown-content {
+    left: auto;
+    right: -1px;
+    top: 41px;
+    min-width: 280px
+}
+.zhidao-topbar-right .am-dropdown-content:before, .zhidao-topbar-right .am-dropdown-content::after {
+    left: auto;
+    right: 20px
+}
+.zhidao-topbar-right .am-dropdown-content li a {
+    padding: 15px 0;
+    font-size: 15px;
+    text-align: center;
+    color: #222
+}
+.fabu-dropdown-title {
+    border-bottom: dashed 1px #ececec;
+    padding: 10px 0 10px 20px;
+    font-size: 16px
+}
+.fabu-dropdown {
+    width: 50%;
+    float: left
+}
+.zd-icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    line-height: 34px
+}
+.zhidao-topbar-right .fabu-dropdown a:hover {
+    background-color: #fff;
+    cursor: pointer
+}
+.zhidao-topbar-right .fabu-dropdown a:hover .zd-icon-btn {
+    background-color: #fe8301
+}
+.homehide {
+    display: none;
+}
+#home-mainnav .am-dropdown-content a {
+    color: #666;
+    border-bottom-width: 0;
+    padding: 9px 48px 9px 22px;
+    font-size: 15px;
+}
+.am-dropdown-content:after {
+    border-bottom-color: rgba(0, 0, 0, 0);
+    bottom: -1px;
+    top: 0;
+}
+#zd-topbar-right .am-dropdown a:hover {
+    color: #4285f4;
+}
+.topbar-new #search-navform {
+    /*margin: 18px 20px 0 0;*/
+    position: absolute;
+    top: 10px;
+    left: 600px;
+}
+#zd-topbar-right{
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
+/*谷歌、Safari浏览器样式*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.tag-search{
+    padding-left:1px;
+}
+}
+/*火狐浏览器*/
+@-moz-document url-prefix() {
+    .am-topbar-right select{
+        padding-top: 2px;
+    }
+}

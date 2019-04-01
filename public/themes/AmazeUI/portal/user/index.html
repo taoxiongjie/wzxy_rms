@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+    <include file="public@header" />
+    <link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+  <title>实验室资产管理系统</title>
+</head>
+<body   >
+  <div class="pet_mian" style="background:#fff" >
+    <div class="pet_head" >
+      <header data-am-widget="header"
+          class="am-header am-header-default pet_head_block">
+        <div class="am-header-left am-header-nav ">
+          <a href="{:url('index/index')}" class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+        </div>
+        <div class="pet_news_list_tag_name">个人中心</div>
+        <div class="am-header-right am-header-nav">
+            <a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+        </div>
+      </header>
+    </div>
+    <div class="pet_content pet_content_list">
+      <div class="pet_grzx">
+
+          <div class="pet_grzx_nr">
+              <div class="pet_grzx_ico">
+                  <if condition="isset($user['avatar']) && $user['avatar']">
+                         <img src="{:cmf_get_asset_url($user['avatar'])}" alt="">
+                      <else/>
+                        <img src="__TMPL__/public/img/headicon.png"  />
+                  </if>
+
+              </div>
+              <div class="pet_grzx_name">{$user['user_login']}</div>
+              <div class="pet_grzx_map">{$user['user_nickname']}</div>
+              <div class="pet_grzx_num_font"> {$user['signature']}</div>
+              <php>$user_statuses=array("1"=>"超级管理员","2"=>"普通管理员","3"=>"教师","4"=>"管理员子账号");</php>
+              <div class="pet_grzx_num">
+                  <span><a class="iconfont ">&#xea16;</a> <i>{$user_statuses[$user['user_status']]}</i></span>
+                  <span><a class="iconfont ">&#xe7f3;</a><i>{$user['college']}</i></span>
+                  <span><a class="iconfont ">&#xebd9;</a><i>{$user['job_title']}</i></span>
+              </div>
+              <div class="pet_grzx_num">
+                  <span><a  href="{:url('portal/user/info')}" class="iconfont ">&#xe827;</a> <i>个人信息</i></span>
+                  <span><a  href="{:url('portal/user/change_password')}" class="iconfont ">&#xe908;</a><i>密码修改</i></span>
+                  <span> <a href="{:url('portal/Index/logout')}" class="iconfont ">&#xeae2;</a><i>退出</i></span>
+              </div>
+
+          </div>
+      </div>
+    </div>
+    <div class="pet_article_dowload"  style="background:#fff">
+          <div class="pet_article_dowload_title">关于数媒</div>
+          <div class="pet_article_dowload_content_font">
+             Amaze UI 以移动优先（Mobile first）为理念，从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。
+
+          </div>
+    </div>
+  </div>
+</body>
+</html>

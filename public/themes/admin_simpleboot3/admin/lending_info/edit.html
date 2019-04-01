@@ -1,0 +1,81 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('LendingInfo/index')}">借出信息列表</a></li>
+        <li ><a href="{:url('LendingInfo/add')}">添加借出信息</a></li>
+        <li class="active"><a href="{:url('LendingInfo/edit')}">借出信息编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('LendingInfo/editpost')}">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>借出信息名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" readonly value="{$name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>借设备人名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-lender_name" name="lender_name" value="{$lender_name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>交付人名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-deliverer_name" name="deliverer_name" value="{$deliverer_name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>起始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-start_time" name="start_time" value="{$start_time}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>终止时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-stop_time" name="stop_time" value="{$stop_time}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>借出说明</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" style="height: 200px" name="repair_info" id="input-repair_info">{$repair_info}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="{$list_order}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <if condition="$data['status'] eq 4">
+                        <foreach name="arrStatus" key="k" item="vo">
+                            <php>$id_selected=$data['status']==$k?"selected":"";</php>
+                            <option value="{$k}"{$id_selected} >{$vo}</option>
+                        </foreach>
+                    <else />
+                        <option value="1"  >已归还</option>
+                    </if>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}" />
+                <input type="hidden" name="asset_id" value="{$asset_id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

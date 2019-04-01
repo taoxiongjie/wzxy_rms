@@ -1,0 +1,84 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('AssetStatistics/index')}">资产统计</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('AssetStatistics/index')}">
+			分类统计:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('AssetStatistics/index')}">清空</a>
+
+		</form>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('AssetStatistics/index')}">
+			资产统计:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('AssetStatistics/index')}">清空</a>
+
+		</form>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('AssetStatistics/index')}">
+			借入借出统计:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('AssetStatistics/index')}">清空</a>
+
+		</form>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('AssetStatistics/index')}">
+			损耗统计:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('AssetStatistics/index')}">清空</a>
+
+		</form>
+
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+        $('#upload').click(function(){
+            var file_url=$('#js-link-file').val();
+            var upload=$('#upload').val();
+            if(!file_url){
+                $('#tishi').html("请上传文件!");
+                setTimeout(cleared,3000);
+            }else{
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "{:url('AssetStatistics/upload_field_excel_post')}",
+                    data: {"file_url":file_url,"upload":upload},
+                    async: false,
+                    error: function(request) {
+                        alert("数据出错");
+                    },
+                    success: function(data) {
+                        var data = eval(data);
+                        if(data.status==1){
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared,2000);
+                        }
+                        else{
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared(),2000);
+                        }
+
+
+                    }
+                });
+            }
+        });
+		function cleared(){
+            $('#tishi').html("");
+            $('#js-link-file').val("");
+            window.location.reload();
+        }
+
+	</script>
+</body>
+</html>

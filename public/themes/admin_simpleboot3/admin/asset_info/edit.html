@@ -1,0 +1,225 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('AssetInfo/index')}">资产列表</a></li>
+        <li ><a href="{:url('AssetInfo/add')}">添加资产</a></li>
+        <li class="active"><a href="{:url('AssetInfo/edit')}">资产编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('AssetInfo/editpost')}">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>图标</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="hidden" name="icon_url" id="icon_url" value="{$icon_url}"  >
+                <a href="javascript:uploadOneImage('图片上传','#icon_url','Image');" style="text-decoration:none;">
+                    <if condition="isset($data['icon_url']) && $data['icon_url']">
+                        <img src="{:cmf_get_asset_url($data['icon_url'])}"
+                             id="icon_url-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                        <else/>
+                        <img src="__TMPL__/public/assets/images/headicon.png"
+                             id="icon_url-preview"
+                             width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+                    </if>
+
+                </a>
+                <input type="button" class="btn btn-primary" onclick="$('#icon_url-preview').attr('src','__TMPL__/public/assets/images/headicon.png');$('#icon_url').val('');return false;" value="取消图片">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>资产名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$name}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">资产类型:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="asset_type" class="form-control">
+                    <option   >请选择</option>
+                    <foreach name="asset_type_data"   item="vo">
+                        <php>$id_selected=$data['asset_type']==$vo['id']?"selected":"";</php>
+                        <option value="{$vo.id}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼宇:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="b_mark" id="b_mark" class="form-control">
+                    <option value=""  >请选择</option>
+                    <foreach name="building_data"   item="vo">
+                        <php>$id_selected=$data['b_mark']==$vo['mark']?"selected":"";</php>
+                        <option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼层:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="f_mark" id="f_mark" class="form-control">
+                    <option value=""  >请选择</option>
+                    <foreach name="floor_data"   item="vo">
+                        <php>$id_selected=$data['f_mark']==$vo['mark']?"selected":"";</php>
+                        <option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属教室:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="r_mark" id="r_mark" class="form-control">
+                    <option value=""  >请选择</option>
+                    <foreach name="room_data"   item="vo">
+                        <php>$id_selected=$data['r_mark']==$vo['mark']?"selected":"";</php>
+                        <option value="{$vo.mark}"{$id_selected} >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>厂家名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-manufact" name="manufact" value="{$manufact}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>资产型号</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-asset_num" name="asset_num" value="{$asset_num}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>采购人</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-purchaser" name="purchaser"  value="{$purchaser}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>采购金额</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-purchase_amount" name="purchase_amount" value="{$purchase_amount}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>购买时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-purchase_time" name="purchase_time" value="{$purchase_time}"  >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>供应商</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-supplier" name="supplier" value="{$supplier}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>保修年限(年)</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repair_time" name="repair_time" value="{$repair_time}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>功耗(Kw)</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-power" name="power" value="{$power}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>载重(Kg)</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-weight" name="weight" value="{$weight}" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>描述</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="remark" id="input-remark">{$remark}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="{$list_order}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <foreach name="arrStatus" key="k" item="vo">
+                        <php>$id_selected=$data['status']==$k?"selected":"";</php>
+                        <option value="{$k}"{$id_selected} >{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $("#b_mark").change(function() {
+        var b_mark = $("#b_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('AssetInfo/floor_data_post')}",
+            data: {b_mark:b_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#f_mark").html(con);
+
+            }
+        });
+
+    });
+    $("#f_mark").change(function() {
+        var f_mark = $("#f_mark").val();
+        $.ajax({
+            type: "POST",
+            url: "{:url('AssetInfo/room_data_post')}",
+            data: {f_mark:f_mark},
+            async: false,
+            dataType:"json",
+            success: function(data) {
+
+                var con = '';
+                con += "<option value=''>请选择.....</option>";
+                for (var i = 0; i < data.length; i++) {
+                    con += '<option value="' + data[i]['mark']+ '">' +data[i]['name']+ '</option>';
+                }
+
+                $("#r_mark").html(con);
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

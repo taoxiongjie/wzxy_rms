@@ -1,0 +1,93 @@
+<include file="public@header" />
+
+<link href="__TMPL__/public/css/display.css" rel="stylesheet">
+<div class="wrap js-check-wrap"  >
+	<ul class="nav nav-tabs">
+		<li><a href="{:url('EngineroomInfo/index')}">机房列表</a></li>
+		<li class="active"><a href="{:url('EngineroomInfo/seat_info',array('mark'=>$mark))}">座位信息</a></li>
+		<li ><a href="{:url('EngineroomInfo/seat_add',array('mark'=>$mark,'seat_num'=>$seat_num))}">座位添加</a></li>
+	</ul>
+	<form method="post" class="js-ajax-form" action="{:url('DisplayManage/listOrder')}">
+		<div class="project-list-box"  >
+			<ul>
+				<empty name="list">
+					<center style="color: #4260c3;font-size: 16px;margin: 50px;">抱歉，目前还没有座位!</center>
+					<else />
+					<foreach name="list" item="vo">
+						<li>
+							<if condition="$vo.status eq 1">
+								<div class="pro-info-box">
+									<img class="pro-img" style="background-color: #00B83F" />
+									<div class="pro-info">
+										<span class="name-time">座位编号:{$vo.seat_id}</span>
+										<input name="list_orders[{$vo.id}]" class="input-order" data-id="{$vo.id}"  data-mark="{$mark}"   style="width:65px;height: 20px;margin-top:-5px; color: #0a0a0a" type="text" value="{$vo.seat_id}">
+										<a class="js-ajax-Obtained" href='{:url("EngineroomInfo/seat_toggle",array("hide"=>1,"id"=>$vo["id"]))}' style="float: right">禁用</a>
+									</div>
+								</div>
+								<else />
+									<div class="pro-info-box">
+										<img class="pro-img" style="background-color: red" />
+										<div class="pro-info">
+											<span class="name-time">座位编号:{$vo.seat_id}</span>
+											<input name="list_orders[{$vo.id}]" class="input-order" data-id="{$vo.id}"  data-mark="{$mark}" style="width:65px;height: 20px;margin-top:-5px; color: #0a0a0a" type="text" value="{$vo.seat_id}">
+											<a class="js-ajax-Obtained" href='{:url("EngineroomInfo/seat_toggle",array("display"=>1,"id"=>$vo["id"]))}' style="float: right">启用</a>
+										</div>
+									</div>
+
+							</if>
+						</li>
+					</foreach>
+				</empty>
+			</ul>
+
+		</div>
+	</form>
+	<div class="clear"></div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    //座位号修改
+    $('.input-order').blur(function(){
+        var ts =$(this);
+        var id = ts.attr('data-id');
+        var mark = ts.attr('data-mark');
+        var seat_id =ts.val();
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "{:url('EngineroomInfo/seat_edit')}",
+            data: {"id":id,"mark":mark,"seat_id":seat_id},
+            async: false,
+            error: function(request) {
+                alert("数据出错");
+            },
+            success: function(data) {
+                console.log(data);
+                if(data.status==1) {
+                    ts.prev().html("座位编号:" + seat_id);
+                }else if(data.status==2) {
+                    alert("更新失败，检查是否编号重复！");
+                    window.location.reload();
+                } else if(data.status==3) {
+                    alert("更新失败！");
+
+                }
+
+            }
+        });
+    });
+    /*$(".pro-info-box").click(function() {
+        if($(this).hasClass('select')) { // 检查是否被选中
+            $(this).removeClass('select'); //如果选中了，移除选中的css
+            $(this).css('background-color','#33AC2B'); // 重新加个背景
+        }else{
+            $(this).css('background-color','#9a161a'); // 重新加个背景
+            $(this).addClass("select"); // 添加选中css
+		}
+    });*/
+
+
+
+</script>
+
+

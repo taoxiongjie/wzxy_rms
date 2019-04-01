@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<include file="public@header" />
+	<link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/SimpleTree.css"/>
+	<title>实验室资产管理系统</title>
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="{:url('portal/index/index')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name"> <strong >维修统计</strong>  </div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 60px;">
+		<!-- 按钮触发器， 需要指定 target -->
+		<button class="am-btn am-btn-primary" data-am-offcanvas="{target: '#doc-oc-demo2', effect: 'push'}">选择查询范围</button>
+		<!-- 侧边栏内容 -->
+		<div id="doc-oc-demo2" class="am-offcanvas">
+			<div class="am-offcanvas-bar">
+				<div class="am-offcanvas-content" style="width:260px">
+					<div class="device_type"  >
+						<span >查询范围 </span>
+						<div class="st_tree" style="overflow-y: auto; -webkit-overflow-scrolling: touch;">
+							<ul>
+								 {$html}
+							</ul>
+						</div>
+					</div>
+					<div class="device_type"  style="border-top-style: solid; border-width: 2px;"  >
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="assets_content">
+			<div class="result"   style="border-bottom-style: solid; border-width: 2px; color: #0b77b4">
+				<label>结果:</label>
+				<span id="sumTip"></span>
+				<!--<button>导出Excel</button>-->
+			</div>
+			<!-- searche_result_container-->
+			<div id="searche_result_container">
+
+			</div><!-- searche_result_container end-->
+
+			<div class="result_content">
+				<div class="table first">
+					<table border="1" cellspacing="0" id="data_table_box">
+
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+	</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    window.onload = function() {
+        var id = '#doc-oc-demo2';
+        var $myOc = $(id);
+        $myOc.on('close.offcanvas.amui', function () {
+            $('#inventory_result_data').val(0);
+           /* //获取选中的设备类型
+            var device_type_ids = '';
+            $('input[name="device_type_id"]:checked').each(function () {
+                if (device_type_ids == '') {
+                    device_type_ids = $(this).val();
+                }
+                else {
+                    device_type_ids += ',' + $(this).val();
+                }
+            });*/
+            var building_ids = '';
+            $('input[name="building_ids"]:checked').each(function () {
+                if (building_ids == '') {
+                    building_ids = $(this).attr('data-mark');
+                }
+                else {
+                    building_ids += ',' + $(this).attr('data-mark');
+                }
+            });
+            var floor_ids = '';
+            $('input[name="floor_ids"]:checked').each(function () {
+                if (floor_ids == '') {
+                    floor_ids = $(this).attr('data-mark');
+                }
+                else {
+                    floor_ids += ',' + $(this).attr('data-mark');
+                }
+            });
+            var room_ids = '';
+            $('input[name="room_ids"]:checked').each(function () {
+                if (room_ids == '') {
+                    room_ids = $(this).attr('data-mark');
+                }
+                else {
+                    room_ids += ',' + $(this).attr('data-mark');
+                }
+            });
+
+            /*if (device_type_ids == "") {
+                alert("请选择查询的设备类型!");
+            }
+            else {*/
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "{:url('AssetStatistics/repair_statistics_post')}",
+                    data: {
+                        "building_ids": building_ids,
+                        "floor_ids": floor_ids,
+                       /* "device_type_ids": device_type_ids,*/
+                        "room_ids": room_ids
+                    },
+                    async: false,
+                    error: function (request) {
+                        alert("数据出错");
+                    },
+                    success: function (data) {
+                        var obj = eval("(" + data + ")");
+                        //更新查询统计值
+                        $('#sumTip').html(obj.info);
+                        var device_data_list = obj.device_data_list;
+
+                        /* console.log(device_data_list);*/
+
+                        var resultHtml = "";
+                        $('#data_table_box').html(resultHtml);
+                        //计数  确保能设置第一个设备类型列表展开
+                        var count = 0;
+
+                        //遍历设备类型列表
+                        for (var i = 0; i < device_data_list.length; i++) {
+                            //如果存在设备列表
+                            if (device_data_list[i]["device_count"] > 0) {
+                                //计数  确保能设置第一个设备类型列表展开
+                                count++;
+                                resultHtml += '<div class="result_content">';
+                                //设置第一个设备类型列表展开
+                                if (count == 1) {
+                                    resultHtml += '	<span class="result_count open">' + device_data_list[i]["name"] + device_data_list[i]["device_count"] + '台 </span>';
+                                    resultHtml += '	<div class="table first">';
+                                }
+                                else {
+                                    resultHtml += '	<span class="result_count close">' + device_data_list[i]["name"] + device_data_list[i]["device_count"] + '台 </span>';
+                                    resultHtml += '	<div class="table">';
+                                }
+                                resultHtml += '		<table border="1" cellspacing="0" style="width: 100%">';
+                                //获取表头字段
+                                var device_fields = device_data_list[i]["device_fields"];
+                                //获取设备类别
+                                var device_list = device_data_list[i]["device_list"];
+                                resultHtml += '			<tr>';
+                                //遍历  字段  生成表头
+                                for (var j = 0; j < device_fields.length; j++) {
+                                    resultHtml += '<th><label style="font-size: 13px">' + device_fields[j]["c_name"] + '</label></th>';
+                                }//遍历  字段  生成表头 end
+                                resultHtml += '			</tr>';
+                                //通过字段 英文名 获取数据列表
+                                for (var d = 0; d < device_list.length; d++) {
+                                    var row = device_list[d];
+                                    resultHtml += '			<tr>';
+                                    //逐列显示字段的数据
+                                    for (var f = 0; f < device_fields.length; f++) {
+                                        var field_name = device_fields[f]["e_name"];
+                                        if ("asset_type" == field_name) {
+                                            var field_val = row['asset_type_name'];
+                                        } else {
+                                            var field_val = row[field_name];
+                                        }
+                                        if (field_val == null || field_val == undefined || field_val == '') {
+                                            field_val = '';
+                                        }
+                                        resultHtml += '				<td>' + field_val + '</td>';
+                                    }//逐列显示字段的数据 end
+                                    resultHtml += '			</tr>';
+                                }//通过字段 英文名 获取数据列表 end
+                                resultHtml += '		</table>';
+                                resultHtml += '	</div>';
+                                resultHtml += '</div>';
+
+                            }  //如果存在设备列表  end
+                        }//遍历设备类型列表 end
+
+                        if (count > 0) {
+                            $('#inventory_result_data').val(1);
+                        }
+                        //追加HTML到 页面中
+                        $('#searche_result_container').html(resultHtml);
+                    }
+
+                });
+           // }
+        });
+            $('#inventory_result_data').val(0);
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:url('AssetStatistics/repair_statistics_post')}",
+                data: {},
+                async: false,
+                error: function (request) {
+                    alert("数据出错");
+                },
+                success: function (data) {
+                    var obj = eval("(" + data + ")");
+                    //更新查询统计值
+                    $('#sumTip').html(obj.info);
+                    var device_data_list = obj.device_data_list;
+
+                    /* console.log(device_data_list);*/
+
+                    var resultHtml = "";
+                    $('#data_table_box').html(resultHtml);
+                    //计数  确保能设置第一个设备类型列表展开
+                    var count = 0;
+
+                    //遍历设备类型列表
+                    for (var i = 0; i < device_data_list.length; i++) {
+                        //如果存在设备列表
+                        if (device_data_list[i]["device_count"] > 0) {
+                            //计数  确保能设置第一个设备类型列表展开
+                            count++;
+                            resultHtml += '<div class="result_content">';
+                            //设置第一个设备类型列表展开
+                            if (count == 1) {
+                                resultHtml += '	<span class="result_count open">' + device_data_list[i]["name"] + device_data_list[i]["device_count"] + '台 </span>';
+                                resultHtml += '	<div class="table first">';
+                            }
+                            else {
+                                resultHtml += '	<span class="result_count close">' + device_data_list[i]["name"] + device_data_list[i]["device_count"] + '台 </span>';
+                                resultHtml += '	<div class="table">';
+                            }
+                            resultHtml += '		<table border="1" cellspacing="0">';
+                            //获取表头字段
+                            var device_fields = device_data_list[i]["device_fields"];
+                            //获取设备类别
+                            var device_list = device_data_list[i]["device_list"];
+                            resultHtml += '			<tr>';
+                            //遍历  字段  生成表头
+                            for (var j = 0; j < device_fields.length; j++) {
+                                resultHtml += '<th><label style="font-size: 13px">' + device_fields[j]["c_name"] + '</label></th>';
+                            }//遍历  字段  生成表头 end
+                            resultHtml += '			</tr>';
+                            //通过字段 英文名 获取数据列表
+                            for (var d = 0; d < device_list.length; d++) {
+                                var row = device_list[d];
+                                resultHtml += '			<tr>';
+                                //逐列显示字段的数据
+                                for (var f = 0; f < device_fields.length; f++) {
+                                    var field_name = device_fields[f]["e_name"];
+                                    if ("asset_type" == field_name) {
+                                        var field_val = row['asset_type_name'];
+                                    } else {
+                                        var field_val = row[field_name];
+                                    }
+                                    if (field_val == null || field_val == undefined || field_val == '') {
+                                        field_val = '';
+                                    }
+                                    resultHtml += '				<td>' + field_val + '</td>';
+                                }//逐列显示字段的数据 end
+                                resultHtml += '			</tr>';
+                            }//通过字段 英文名 获取数据列表 end
+                            resultHtml += '		</table>';
+                            resultHtml += '	</div>';
+                            resultHtml += '</div>';
+
+                        }  //如果存在设备列表  end
+                    }//遍历设备类型列表 end
+
+                    if (count > 0) {
+                        $('#inventory_result_data').val(1);
+                    }
+                    //追加HTML到 页面中
+                    $('#searche_result_container').html(resultHtml);
+                }
+
+            });
+    }
+
+</script>
+<script type="text/javascript">
+    $("#AllChecked").click(function(){
+        $('input[name="device_type_id"]').prop("checked",true);
+        $("#NoneChecked").prop("checked",false);
+    });
+    $("#NoneChecked").click(function(){
+        $('input[name="device_type_id"]:checked').prop("checked",false);
+        $("#AllChecked").prop("checked",false);
+    });
+    $(document).on("click", "#checkBox_device_type_id", function(){
+
+        $("#AllChecked").prop("checked",false);
+        $("#NoneChecked").prop("checked",false);
+
+    }); // jQuery 1.7+
+
+
+
+
+</script>
+</body>
+</html>

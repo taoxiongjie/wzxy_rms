@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+				<html xmlns="http://www.w3.org/1999/xhtml">
+				<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<title>机房公约</title>
+				<style type="text/css">
+				 
+               .main{
+                    
+                    background-color: #fff;
+                    border-radius: 20px;
+                    width: 1100px;
+                    height: 100%;
+                    margin: auto;
+                    position: absolute;
+                    
+                    left: 0;
+                    right: 0;
+                     
+                }
+ 
+				</style>
+				</head>
+				<body>
+				<div class="main"><p style="text-align: center;">清除缓冲区就应该可以了，</p><p>解决的办法是在vendor/topthink/think-captcha/CaptchaController.php中加上这个ob_clean();就可以了，</p><p>ggfffffffffffffffffffff</p><p><img src="http://localhost:8002/upload/default/20190327/a71b2f5b5f4a1c5575d983773681d87a.jpg" title="20140225103606_85025.jpg" alt="20140225103606_85025.jpg" width="366" height="223" style="text-align: center; width: 366px; height: 223px;"/></p><p>修改后的代码如下:</p><p>class CaptchaController</p><p>{</p><p>&nbsp; &nbsp; public function index($id = &quot;&quot;)</p><p>&nbsp; &nbsp; {</p><p>&nbsp; &nbsp; <span style="white-space:pre"></span>ob_clean();&nbsp; &nbsp; &nbsp; //清除缓存 自己添加</p><p>&nbsp; &nbsp; &nbsp; &nbsp; $captcha = new Captcha((array)Config::get(&#39;captcha&#39;));</p><p>&nbsp; &nbsp; &nbsp; &nbsp; return $captcha-&gt;entry($id);</p><p>&nbsp; &nbsp; }</p><p>}</p><p><img src="http://localhost:8002/upload/default/20190327/f37e4606ca884564de59b1a223a049a8.png" title="大数据学院LOGO(蓝色).png" alt="大数据学院LOGO(蓝色).png" width="219" height="21"/></p><p>---------------------&nbsp;</p><p>作者：qq_34311743&nbsp;</p><p>来源：CSDN&nbsp;</p><p>原文：https://blog.csdn.net/qq_34311743/article/details/80735044&nbsp;</p><p>版权声明：本文为博主原创文章，转载请附上博文链接！</p><p><img src="http://localhost:8002/upload/default/20190327/8a070a18d6447fb1cac429633da164ba.png" title="大数据学院LOGO(蓝色)1.png" alt="大数据学院LOGO(蓝色)1.png" width="228" height="150"/></p><p><br/></p>
+                 </div>
+				</body>
+				</html>

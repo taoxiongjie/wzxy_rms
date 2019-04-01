@@ -1,0 +1,227 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('FloorInfo/index')}">楼层列表</a></li>
+			<li><a href="{:url('FloorInfo/add')}">添加楼层</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('FloorInfo/index')}">
+			关键字:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$name|default=''}" placeholder="请输入关键字...">
+			所属楼宇:
+			<SELECT name="b_mark" class="form-control" style="width: 180px; height:36px; " >
+				<option value="">请选择...</option>
+				<foreach name="place_data" item="vo">
+					<php>$id_selected=$place['mark']==$vo['mark']?"selected":"";</php>
+					<option value="{$vo.mark}"{$id_selected}>{$vo.name}</option>
+				</foreach>
+			</SELECT>
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('FloorInfo/index')}">清空</a>
+			<!--上传EXECL表格:
+			<input type="text" id="js-link-file" class="form-control" style="width: 200px" > <a href="javascript:uploadOne('请上传.xlsx表格文件','#js-link-file','file','Excel');">上传EXECL表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" class="btn btn-primary" id="upload" value="上传" />
+			<input type="button" class="btn btn-danger" id="replace" value="替换" />
+			<a class="btn btn-danger" href="{:url('FloorInfo/download')}" >下载模板</a>
+			<span id="tishi"></span>-->
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('FloorInfo/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('FloorInfo/toggle',array('display'=>1))}" data-subcheck="true">启用</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('FloorInfo/toggle',array('hide'=>1))}" data-subcheck="true">禁用</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('FloorInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="50">ID</th>
+						<th>楼层名称</th>
+						<th>楼层标识</th>
+						<th>所属楼宇</th>
+						<th>描述</th>
+						<th>创建时间</th>
+						<th>状态</th>
+						<th width="220">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<php>$FloorInfo_statuses=array("0"=>"未启用","1"=>"启用");</php>
+				<foreach name="floor_info" item="vo">
+					<tr>
+						<td>
+							<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
+								   value="{$vo.id}" title="ID:{$vo.id}">
+						</td>
+						<td>
+							<input name="list_orders[{$vo.id}]" class="input-order" type="text"
+								   value="{$vo.list_order}">
+						</td>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.mark}</td>
+						<td>{$vo.building_name}</td>
+						<td>{$vo.remark}</td>
+						<td>{$vo.create_time}</td>
+						<td>{$FloorInfo_statuses[$vo['status']]}</td>
+						<td>
+
+							<a href='{:url("FloorInfo/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>|
+							<a class="js-ajax-delete" href="{:url('FloorInfo/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				<tfoot>
+				<tr>
+					<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+					<th width="50">排序</th>
+					<th width="50">ID</th>
+					<th>楼层名称</th>
+					<th>楼层标识</th>
+					<th>所属楼宇</th>
+					<th>描述</th>
+					<th>创建时间</th>
+					<th>状态</th>
+					<th width="220">操作</th>
+				</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('FloorInfo/toggle',array('display'=>1))}" data-subcheck="true">启用</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('FloorInfo/toggle',array('hide'=>1))}" data-subcheck="true">禁用</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('FloorInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script type="text/javascript">
+        $('#upload').click(function(){
+            var file_url=$('#js-link-file').val();
+            var upload=$('#upload').val();
+            if(!file_url){
+                $('#tishi').html("请上传文件!");
+                setTimeout(cleared,3000);
+            }else{
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "{:url('FloorInfo/upload_field_excel_post')}",
+                    data: {"file_url":file_url,"upload":upload},
+                    async: false,
+                    error: function(request) {
+                        alert("数据出错");
+                    },
+                    success: function(data) {
+                        var data = eval(data);
+                        if(data.status==1){
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared,2000);
+                        }
+                        else{
+                            $('#tishi').html(data.info);
+                            setTimeout(cleared(),2000);
+                        }
+
+
+                    }
+                });
+            }
+        })
+        $('#replace').on('click', function (e) {
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                msg = $this.data('msg');
+            href = href ? href : $this.attr('href');
+            art.dialog({
+                title: false,
+                icon: 'question',
+                content: msg ? msg : '确定要替换所有数据吗？',
+                follow: $_this,
+                close: function () {
+                    $_this.focus();; //关闭时让触发弹窗的元素获取焦点
+                    return true;
+                },
+                okVal: "确定",
+                ok: function () {
+                    var file_url=$('#js-link-file').val();
+                    var upload="";
+                    if(!file_url){
+                        $('#tishi').html("请上传文件!");
+                        setTimeout(cleared,2000);
+                    }else{
+
+                        $.ajax({
+                            cache: true,
+                            type: "POST",
+                            url: "{:url('FloorInfo/upload_field_excel_post')}",
+                            data: {"file_url":file_url,"upload":upload},
+                            async: false,
+                            error: function(request) {
+                                alert("数据出错");
+                            },
+                            success: function(data) {
+                                var data = eval(data);
+                                if(data.status==1){
+                                    $('#tishi').html(data.info);
+                                    setTimeout(cleared,2000);
+                                }
+                                else{
+                                    $('#tishi').html(data.info);
+                                    setTimeout(cleared(),2000);
+                                }
+
+
+                            }
+                        });
+                    }
+                    $.getJSON(href).done(function (data) {
+                        if (data.state === 'success') {
+                            if (data.referer) {
+                                location.href = data.referer;
+                            } else {
+                                reloadPage(window);
+                            }
+                        } else if (data.state === 'fail') {
+                            //art.dialog.alert(data.info);
+                            //alert(data.info);//暂时处理方案
+                            art.dialog({
+                                content: data.info,
+                                icon: 'warning',
+                                ok: function () {
+                                    this.title(data.info);
+                                    return true;
+                                }
+                            });
+                        }
+                    });
+                },
+                cancelVal: '关闭',
+                cancel: true
+            });
+        });
+        function cleared(){
+            $('#tishi').html("");
+            $('#js-link-file').val("");
+            window.location.reload();
+        }
+
+	</script>
+</body>
+</html>

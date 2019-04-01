@@ -1,0 +1,115 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('RegistrReview/index')}">学生申请列表</a></li>
+			<li class="active"><a>审核学生</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('RegistrReview/editPost')}">
+			<div class="form-group">
+				<label for="input-avatar" class="col-sm-2 control-label">头像</label>
+				<div class="col-md-6 col-sm-10">
+					<if condition="isset($avatar) && $avatar">
+						<img src="{:cmf_get_asset_url($avatar)}"
+							 id="avatar-preview"
+							 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+						<else/>
+						<img src="__TMPL__/public/assets/images/headicon.png"
+							 id="avatar-preview"
+							 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+					</if>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-student_card" class="col-sm-2 control-label">学生证</label>
+				<div class="col-md-6 col-sm-10">
+					<if condition="isset($student_card) && $student_card">
+						<img src="{:cmf_get_asset_url($student_card)}"
+							 id="student_card-preview"
+							 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+						<else/>
+						<img src="__TMPL__/public/assets/images/headicon.png"
+							 id="student_card-preview"
+							 width="135" style="cursor: pointer;border: 2px solid #FFF;border-radius: 36px;"/>
+					</if>
+ 				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>用户名（学号）</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-user_login"   value="{$user_login}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>姓名</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-user_nickname"  value="{$user_nickname}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-gender" class="col-sm-2 control-label">{:lang('GENDER')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control"   disabled=”disabled”   id="input-gender">
+						<php>$sexs=array("0"=>lang('GENDER_SECRECY'),"1"=>lang('MALE'),"2"=>lang('FEMALE'));</php>
+						<foreach name="sexs" item="vo">
+							<php>$sexselected=$key==$sex?"selected":"";</php>
+							<option value="{$key}" {$sexselected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>学院</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-college"  value="{$college}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>班级</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-position"  value="{$class}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_email" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('EMAIL')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-user_email"   value="{$user_email}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-user_login" class="col-sm-2 control-label"><span class="form-required">*</span>手机</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" readonly="readonly" id="input-mobile"  value="{$mobile}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-gender" class="col-sm-2 control-label"><span class="form-required">*</span>审核结果</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="user_status"    >
+						<php>$sexs=array("0"=>'未审核',"1"=>'审核通过',"2"=>'审核未通过',"3"=>'违纪拉黑');</php>
+						<foreach name="sexs" item="vo">
+							<php>$sexselected=$key==$user_status?"selected":"";</php>
+							<option value="{$key}" {$sexselected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-site_analytics" class="col-sm-2 control-label">审核说明</label>
+				<div class="col-md-6 col-sm-10">
+					<textarea class="form-control" id="input-site_analytics" name="review_details" style="height: 200px">{$review_details|default=''}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

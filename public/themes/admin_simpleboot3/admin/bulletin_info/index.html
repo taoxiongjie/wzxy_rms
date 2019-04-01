@@ -1,0 +1,44 @@
+<include file="public@header"/>
+<link rel="stylesheet" href="__TMPL__/public/assets/i/css/app.css">
+<link rel="stylesheet" href="__TMPL__/public/assets/i/css/amazeui.min.css">
+
+</head>
+<body>
+<div class="wrap js-check-wrap" >
+
+<!-- content srart -->
+<div class=" am-g-fixed blog-fixed">
+    <div class="am-u-md-12 am-u-sm-12" style="margin-bottom: 50px">
+        <foreach name="articles" item="vo">
+            <article class="am-g blog-entry-article">
+                <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img" style="margin-top: 18px">
+                    <if condition=" !empty($vo['icon_url']) ">
+                        <a href="{:url('BulletinInfo/view',array('id'=>$vo['id']))}">
+                            <img src="{:cmf_get_asset_url($vo['icon_url'] )}" class="am-u-sm-12" >
+                        </a>
+                        <else/>
+                        <a href="{:url('BulletinInfo/view',array('id'=>$vo['id']))}">
+                        <img src="__TMPL__/public/assets/i//f4.png" alt="" class="am-u-sm-12">
+                        </a>
+                    </if>
+                </div>
+                <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text" style="margin-top: 18px">
+                    <span><a href="" class="blog-color">{$vo.user_nickname} &nbsp;</a></span>
+
+                    <span>{:date('Y-m-d H:i',$vo.update_time)}</span>
+                    <h1 style="font-size: 36px;margin-top: 20px" ><a  href="{:url('BulletinInfo/view',array('id'=>$vo['id']))}">{$vo.post_title}</a></h1>
+                    <p>{$vo.post_content|msubstr=0,85} </p>
+                    <p><a href="" class="blog-continue">continue reading</a></p>
+                </div>
+            </article>
+        </foreach>
+        <ul class="pagination">{$page}</ul>
+    </div>
+
+</div>
+     
+<!-- content end -->
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

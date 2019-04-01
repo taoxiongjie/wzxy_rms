@@ -1,0 +1,83 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:Url('Log/index')}">日志管理</a></li>
+		</ul>
+        <form class="well form-inline margin-top-20" method="post" action="{:Url('Log/index')}">
+            用户名称：
+          	<select   class="form-control" style="width: 200px" name="user_id">
+            	<option value="0">全部</option>
+                <foreach name="users" item="vo">
+					<php>$user_check = $user_id==$vo['id'] ? 'selected':'';</php>
+                	<option value="{$vo.id}" {$user_check}  >{$vo.user_nickname}</option>
+                </foreach>
+            </select>
+			<input type="submit" class="btn btn-primary" value="搜索" />
+			<a class="btn btn-danger" href="{:url('Log/index')}">清空</a>
+        </form>
+		<form method="post" class="js-ajax-form" >
+			<div class="table-actions">
+				<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:Url('Log/delete')}" data-subcheck="true" >删除</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">ID</th>
+						<th >用户名</th>
+						<th >操作名称</th>
+						<th >模块名称</th>
+						<th >控制器名称</th>
+						<th >方法名称</th>
+						<th >对象ID</th>
+						<th >IP</th>
+						<th >操作时间</th>
+						<th width="100">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="data" item="vo">
+						<tr>
+							<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}"></td>
+							<td width="50">{$vo.id}</td>
+							<td>{$vo.user_nickname}</td>
+							<td>{$vo.action_name}</td>
+							<td>{$vo.app}</td>
+							<td>{$vo.controller}</td>
+							<td>{$vo.action}</td>
+							<td>{$vo.object_id}</td>
+							<td>{$vo.ip_address}</td>
+							<td>{$vo.action_time}</td>
+							<td>
+							<a class="js-ajax-delete" href="{:Url('Log/delete',array('id'=>$vo['id']))}">删除</a>
+							</td>
+						</tr>
+                    </foreach>
+				</tbody>
+                <tfoot>
+						<tr>
+							<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+							<th width="50">ID</th>
+							<th >用户名</th>
+							<th >操作名称</th>
+							<th >模块名称</th>
+							<th >控制器名称</th>
+							<th >方法名称</th>
+							<th >对象ID</th>
+							<th >IP</th>
+							<th >操作时间</th>
+							<th width="100">操作</th>
+						</tr>
+				</tfoot>
+			</table>
+            <div class="table-actions">
+				<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:Url('Log/delete')}" data-subcheck="true"  >删除</button>
+			</div>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

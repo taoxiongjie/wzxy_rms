@@ -1,0 +1,81 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('RepairInfo/index')}">维修资产列表</a></li>
+        <li ><a href="{:url('RepairInfo/add')}">添加维修资产</a></li>
+        <li class="active"><a href="{:url('RepairInfo/edit')}">维修资产编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('RepairInfo/editpost')}">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>维修资产名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" readonly value="{$name}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>维修人</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repairer" name="repairer" value="{$repairer}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>起始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-start_time" name="start_time" value="{$start_time}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>终止时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-date" id="input-stop_time" name="stop_time" value="{$stop_time}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>维修金额</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repair_amount" name="repair_amount"  value="{$repair_amount}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>维修信息</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" style="height: 200px" name="repair_info" id="input-repair_info">{$repair_info}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="{$list_order}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <if condition="$data['status'] eq 2">
+                        <foreach name="arrStatus" key="k" item="vo">
+                            <php>$id_selected=$data['status']==$k?"selected":"";</php>
+                            <option value="{$k}"{$id_selected} >{$vo}</option>
+                        </foreach>
+                    <else />
+                        <option value="1"  >已修复</option>
+                    </if>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}" />
+                <input type="hidden" name="asset_id" value="{$asset_id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

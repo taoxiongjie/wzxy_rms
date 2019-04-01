@@ -1,0 +1,39 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('EngineroomInfo/index')}">机房列表</a></li>
+        <li class="active"><a href="{:url('EngineroomInfo/seat_info',array('mark'=>$mark))}">座位信息</a></li>
+        <li ><a >座位添加</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('EngineroomInfo/seat_add_post')}">
+
+        <div class="form-group">
+            <label for="seat_id" class="col-sm-2 control-label"><span class="form-required">*</span>座位编号</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="seat_id" name="seat_id" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <foreach name="arrStatus" key="k" item="vo">
+                        <option value="{$k}" >{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="room_mark" value="{$mark}" />
+                <input type="hidden" name="seat_num" value="{$seat_num}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

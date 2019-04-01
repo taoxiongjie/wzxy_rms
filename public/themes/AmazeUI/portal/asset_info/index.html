@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<include file="public@header" />
+	<link rel="stylesheet" href="__TMPL__/public/css/wap.css">
+	<link rel="stylesheet" href="__TMPL__/public/css/bootstrap.min.css">
+	<title>实验室资产管理系统</title>
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="{:url('portal/index/index')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name"> <strong >资产管理</strong></div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<!-- content start -->
+	<div class="admin-content" style="padding-top: 60px;">
+		<div class="admin-content-body">
+			<form class="well form-inline margin-top-20" style="min-height: 100px;padding: 0px;" method="post" action="{:url('portal/asset_info/index')}">
+
+				<SELECT name="asset_type"   class="form-control" style="width: 45%; height:36px;float: left;" >
+					<option value="">请选择资产类型...</option>
+					<foreach name="asset_type_data" item="vo">
+						<php>$id_selected=$type['id']==$vo['id']?"selected":"";</php>
+						<option value="{$vo.id}"{$id_selected}>{$vo.name}</option>
+					</foreach>
+				</SELECT>
+				<input type="text"  name="name"  style="width: 50%; height:36px;margin-left: 10px  "       value="{:input('request.name/s','')}" placeholder="请输入资产名称">
+				<div class="am-cf am-padding am-padding-bottom-0"  style="float: left;">
+					<div class="am-fl am-cf">
+						<a href="{:url('portal/asset_info/add')}"><strong class="am-text-primary am-text-lg">新增</strong> / <small>Add</small></a>
+					</div>
+				</div>
+				<div style="padding-top: 1em;float: right">
+					<input type="submit"   class="btn btn-primary" value="搜索" />
+					<a class="btn btn-danger" href="{:url('portal/asset_info/index')}">清空</a>
+				</div>
+			</form>
+
+			<hr>
+
+			<ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list">
+				<foreach name="asset_info_info" item="vo">
+				<li style="width: 50%;height: 160px;margin-bottom: 5px" >
+					<a href="#">
+						<if condition=" !empty($vo['icon_url']) ">
+							<a href='{:url("AssetInfo/edit",array("id"=>$vo["id"]))}'>
+								<img class="am-img-thumbnail am-img-bdrs" height="120" src="{:cmf_get_asset_url($vo['icon_url'] )}" alt=""/>
+							</a>
+							<else/>
+							<!--<a href="javascript:parent.imagePreviewDialog('__TMPL__/public/img/headicon.png');">-->
+							<a href='{:url("AssetInfo/edit",array("id"=>$vo["id"]))}' >
+							   <img class="am-img-thumbnail am-img-bdrs" height="120" src="__TMPL__/public/img/headicon.png" alt=""/>
+							</a>
+						</if>
+						<php>$AssetInfo_statuses=array("0"=>"报废","1"=>"正常","2"=>"维修","3"=>"借入","4"=>"借出");</php>
+						<div class="gallery-title">资产类型:{$vo.asset_type_name} <span style="color: red"> {$AssetInfo_statuses[$vo['status']]} </span></div>
+						<div class="gallery-desc" >
+							<label>
+								<!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">-->资产名称:{$vo.name}
+							</label>  &nbsp;<a  class="js-ajax-delete" href="{:url('AssetInfo/delete',array('id'=>$vo['id']))}">删除</a>
+						</div>
+					</a>
+				</li>
+				</foreach>
+			</ul>
+
+			<div class="am-margin am-cf">
+				<hr/>
+
+				<ol class="am-pagination am-fr" style="color: #0a0a0a">
+					<span style="padding-right: 10px;color: #0d1318">一共{$sum}条记录，每页显示10条</span>
+					当前第{$p}页
+					{$page}
+				</ol>
+			</div>
+		</div>
+
+<!--		<footer class="admin-content-footer">
+			<hr>
+			<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+		</footer>-->
+
+	</div>
+	<!-- content end -->
+
+
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

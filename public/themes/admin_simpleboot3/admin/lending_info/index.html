@@ -1,0 +1,107 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('LendingInfo/index')}">借出信息列表</a></li>
+			<li><a href="{:url('LendingInfo/add')}">添加借出信息</a></li>
+		</ul>
+		<form class="well form-inline margin-top-20" method="post" action="{:url('LendingInfo/index')}">
+			借出信息名称:
+			<input type="text" class="form-control" name="name" style="width: 200px;"
+				   value="{$name|default=''}" placeholder="请输入借出信息名...">
+			<input type="submit" class="btn btn-primary" value="搜索"/>
+			<a class="btn btn-danger" href="{:url('LendingInfo/index')}">清空</a>
+			<!--上传EXECL表格:
+			<input type="text" id="js-link-file" class="form-control" style="width: 200px" > <a href="javascript:uploadOne('请上传.xlsx表格文件','#js-link-file','file','Excel');">上传EXECL表格</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" class="btn btn-primary" id="upload" value="上传" />
+			<a class="btn btn-danger" href="{:url('LendingInfo/download_LendingInfo')}" >下载数据文件</a>
+			<span id="tishi"></span>-->
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('LendingInfo/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('LendingInfo/toggle',array('display'=>1))}" data-subcheck="true">归还</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('LendingInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">排序</th>
+						<th width="120">借出设备名称</th>
+						<th width="120">借设备人名称</th>
+						<th width="120">交付人名称</th>
+						<th width="140">起始时间</th>
+						<th width="140">终止时间</th>
+						<th>借出说明</th>
+						<th width="140">更新时间</th>
+						<th width="80">操作人</th>
+						<th width="80">状态</th>
+						<th width="80">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<php>$LendingInfo_statuses=array("4"=>"已借出","1"=>"已归还");</php>
+				<foreach name="lending_info_info" item="vo">
+					<tr>
+						<td>
+							<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
+								   value="{$vo.id}" title="ID:{$vo.id}">
+						</td>
+						<td>
+							<input name="list_orders[{$vo.id}]" class="input-order" type="text"
+								   value="{$vo.list_order}">
+						</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.lender_name}</td>
+						<td>{$vo.deliverer_name}</td>
+						<td>{$vo.start_time}</td>
+						<td>{$vo.stop_time}</td>
+						<td>{$vo.repair_info}</td>
+						<td>{$vo.update_time}</td>
+						<td>{$vo.user_nickname}</td>
+						<td>{$LendingInfo_statuses[$vo['status']]}</td>
+						<td>
+								<a href='{:url("LendingInfo/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+								<a class="js-ajax-delete" href="{:url('LendingInfo/delete',array('id'=>$vo['id'],'asset_id'=>$vo['asset_id']))}">{:lang('DELETE')}</a>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				<tfoot>
+				<tr>
+					<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+					<th width="50">排序</th>
+					<th width="120">借出设备名称</th>
+					<th>借设备者名称</th>
+					<th>交付人名称</th>
+					<th width="140">起始时间</th>
+					<th width="140">终止时间</th>
+					<th>借出说明</th>
+					<th width="140">更新时间</th>
+					<th width="80">操作人</th>
+					<th width="80">状态</th>
+					<th width="80">操作</th>
+				</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+				<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" data-action="{:url('LendingInfo/toggle',array('display'=>1))}" data-subcheck="true">归还</button>
+				<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
+						data-action="{:url('LendingInfo/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+					{:lang('DELETE')}
+				</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

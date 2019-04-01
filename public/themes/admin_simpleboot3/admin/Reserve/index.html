@@ -1,0 +1,31 @@
+<include file="public@header" />
+<link href="__TMPL__/public/assets/simpleboot3/css/display.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="{:url('Reserve/index')}">机房位置列表</a></li>
+	</ul>
+	<div class="project-list-box" style="margin-top: 10px;margin-left:-40px">
+		<ul>
+			<foreach name="data" item="vo">
+				<if condition="empty($reserve_id)">
+					<a style="text-decoration:none;color: #0a0a0a"  href="{:url('Reserve/engineroom_list',array('mark'=>$vo['mark'],'building_name'=>$vo['name']))}" >
+					<else />
+					<a style="text-decoration:none;color: #0a0a0a"  href="{:url('Reserve/engineroom_list',array('reserve_id'=>$reserve_id,'mark'=>$vo['mark'],'building_name'=>$vo['name']))}" >
+				</if>
+					<li>
+						<div class="pro-name">
+							<p style="font-size: 18px;  cursor: pointer;  padding:  0 32px; ">{$vo.name} </p>
+							<p style="font-size: 16px;  cursor: pointer; color: #0d1318;  padding:  0 32px; ">{$vo.remark} </p>
+						</div>
+					</li>
+				</a>
+			</foreach>
+		</ul>
+	</div>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

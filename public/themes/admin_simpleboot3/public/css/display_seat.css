@@ -1,0 +1,106 @@
+@charset "utf-8";
+.project-list-box{
+    width: 70%;
+    height: 800px;
+    float: left;
+    border-radius: 4px;
+    border-style: ridge;
+    overflow:scroll;
+    overflow-x:hidden;
+
+}
+.project-list-box ul li{
+    height: 65px;
+    width: 65px;
+    float: left;
+    margin-right: 20px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    border-style: ridge;
+    margin-top:20px ;
+    list-style:none;
+    list-style-position:outside;
+
+}
+.project-list-box ul li:hover {
+    transform: scale(1.005,1.005);
+    -webkit-box-shadow: 0 4px 15px 0 #aaaaaa;
+    -ms-box-shadow: 0 4px 15px 0 #aaaaaa;
+    box-shadow: 0 4px 15px 0 #aaaaaa;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.project-list-box ul li .pro-info-box{
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    z-index: 1;
+    border-radius: 4px;
+}
+.project-list-box ul li .pro-info-box .pro-img{
+    width: 115px;
+    height: 60px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.project-list-box ul li .pro-info-box .pro-name{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #333333;
+    border-bottom: 0.5px solid #eee;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+.project-list-box ul li .pro-info-box .name-time{
+    display: inline-block;
+    color: white;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.project-list-box ul li .pro-info-box .pro-info{
+    padding: 0px 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    color: #bbbbbb;
+}
+
+
+.seat_info{
+    width: 30%;
+    height: 800px;
+    float: left;
+    border-radius: 4px;
+    border-style: ridge;
+
+
+}
+
+.seat_info h3 {margin: 20px 20px 0 0;font-size: 24px;color: #0a6ea7;}
+.seat_info p{margin: 20px 20px 0 0;line-height:26px; font-size:24px; color: #0a6ea7;}
+.seat_info p span{color: #0a6ea7;}
+
+.cart-item{
+    font-size: 24px;
+    color: #0a6ea7;
+    list-style:none;
+
+}
+
+.color_block{
+    width: 60px;
+    text-align: center;
+    float: left;
+    margin: 10px;
+}
+

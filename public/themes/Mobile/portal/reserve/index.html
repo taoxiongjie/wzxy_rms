@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<include file="public@header" />
+	<title>实验室预约管理系统</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/wap.css">
+	<link type="text/css" rel="stylesheet" href="__TMPL__/public/plugins/amazeui-2.4/css/amazeui.min.css">
+	<link rel="stylesheet" href="__TMPL__/public/css/reserve_style.css">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/footer.mobile.css">
+	<link rel="stylesheet" type="text/css" href="__TMPL__/public/css/style.mobile.css">
+
+</head>
+<body >
+<div class="pet_mian"   >
+	<div class="pet_head" >
+		<header data-am-widget="header"
+				class="am-header am-header-default pet_head_block">
+			<div class="am-header-left am-header-nav ">
+				<a href="{:url('portal/index/index')}"   class="iconfont pet_head_jt_ico">&#xeaa0;</a>
+			</div>
+			<div class="pet_news_list_tag_name"> <strong >教学楼</strong> / <small>Teaching building</small> </div>
+			<div class="am-header-right am-header-nav">
+				<a href="{:url('portal/index/index')}" class="iconfont pet_head_gd_ico">&#xe8b4;</a>
+			</div>
+		</header>
+	</div>
+	<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 60px;position: fixed; width: 100%;  left: 0; right: 0;">
+		<div class="withdrawals-panel">
+			<form class="am-form">
+				<foreach name="data" item="vo" >
+					<a class="am-radio up-radio-item up-radio-item{$key}" href="{:url('portal/Reserve/roomlist',array('mark'=>$vo['mark'],'building_name'=>$vo['name']))}">
+						{$vo.name}
+					</a>
+				</foreach>
+			</form>
+		</div>
+	</div>
+</div>
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default am-no-layout" id="footernav">
+	<ul class="am-navbar-nav am-cf am-avg-sm-4">
+		<li name="home">
+			<a onclick="location.href='/'">
+				<img src="__TMPL__/public/images/mobile/home.png" width="35" class="home" >
+				<img src="__TMPL__/public/images/mobile/home-blue.png" width="35" class="home-blue zd-hidden">
+				<span class="am-navbar-label">首页</span>
+			</a>
+		</li>
+		<li class="active" name="c">
+			<a onclick="location.href='/c?tag=2016中国500强'">
+				<img src="__TMPL__/public/images/mobile/tags.png" width="35" class="company" style="display: none;">
+				<img src="__TMPL__/public/images/mobile/tags-blue.png" width="35" class="company-blue zd-hidden" style="display: inline;">
+				<span class="am-navbar-label">预约</span>
+			</a>
+		</li>
+		<li name="news">
+			<a href="{:url('portal/BulletinInfo/index')}">
+				<img src="__TMPL__/public/images/mobile/find.png" width="35" class="news">
+				<img src="__TMPL__/public/images/mobile/find-blue.png" width="35" class="news-blue zd-hidden">
+				<span class="am-navbar-label">公告</span>
+			</a>
+		</li>
+		<li   name="user">
+			<a href="{:url('portal/user/index')}">
+				<img src="__TMPL__/public/images/mobile/user.png" width="35" class="user" >
+				<img src="__TMPL__/public/images/mobile/user-blue.png" width="35" class="user-blue zd-hidden" >
+				<span class="am-navbar-label">我的</span>
+			</a>
+		</li>
+
+	</ul>
+</div>
+
+<script src="__STATIC__/js/frontend.js"></script>
+</body>
+</html>

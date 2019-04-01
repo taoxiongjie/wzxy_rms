@@ -1,0 +1,63 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('DiverManage/index')}">出入资产列表</a></li>
+        <li ><a href="{:url('DiverManage/add')}">添加出入资产</a></li>
+        <li class="active"><a href="{:url('DiverManage/edit')}">出入资产编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('DiverManage/handle_post')}">
+
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>出入人</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repairer" name="repairer"   >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>起始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-datetime" id="input-start_time" name="start_time"   >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>终止时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control js-bootstrap-datetime" id="input-stop_time" name="stop_time"  >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>出入金额</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-repair_amount" name="repair_amount"   >
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"><span class="form-required">*</span>出入/损耗信息</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" style="height: 200px" name="repair_info" id="input-repair_info"> </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <option value="2" >出入</option>
+                    <option value="0" >报废</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="ids" value="{$ids}" />
+                <input type="hidden" name="id" value="{$id}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

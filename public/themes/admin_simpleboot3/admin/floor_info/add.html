@@ -1,0 +1,67 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('FloorInfo/index')}">楼层列表</a></li>
+        <li class="active"><a href="{:url('FloorInfo/add')}">添加楼层</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('FloorInfo/addpost')}">
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>楼层名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-mark" class="col-sm-2 control-label"><span class="form-required">*</span>楼层标识</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-mark" name="mark" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>所属楼宇:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="b_mark" class="form-control">
+                    <option  value="" >请选择</option>
+                    <foreach name="building_data"   item="vo">
+                        <option value="{$vo.mark}" >{$vo.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="input-FloorInfo_email" class="col-sm-2 control-label"><span class="form-required">*</span>描述</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="remark" id="input-remark"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-FloorInfo_email" class="col-sm-2 control-label"><span class="form-required">*</span>排序</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-list_order" name="list_order" value="0">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+                <select name="status" class="form-control">
+                    <foreach name="arrStatus" key="k" item="vo">
+                        <option value="{$k}" >{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('AdminStu/index')}">学生列表</a></li>
+        <li><a href="{:url('AdminStu/add')}">学生添加</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('AdminStu/index')}">
+        学号：
+        <input class="form-control" type="text" name="user_login" style="width: 200px;" value="{:input('request.user_login')}"
+               placeholder="请输入学号">
+        关键字：
+        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+               placeholder="用户名/昵称/邮箱/手机">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('user/adminIndex/index')}">清空</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>用户名（学号）</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>头像</th>
+                <th>学生证</th>
+                <th>学院</th>
+                <th>班级</th>
+                <th>{:lang('EMAIL')}</th>
+                <th>手机</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <php>
+                $user_statuses=array("0"=>lang('USER_STATUS_BLOCKED'),"1"=>lang('USER_STATUS_ACTIVATED'),"2"=>lang('USER_STATUS_UNVERIFIED'));
+            </php>
+            <php>$sexs=array("0"=>lang('GENDER_SECRECY'),"1"=>lang('MALE'),"2"=>lang('FEMALE'));</php>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo['user_login']}</td>
+                    <td>{$vo['user_nickname']}</td>
+                    <td>{$sexs[$vo['sex']]}</td>
+                    <if condition="!empty($vo['avatar'])">
+                        <td><img width="45" height="45" src="{:cmf_get_asset_url($vo['avatar'])}"/></td>
+                        <else/>
+                        <td><img width="45" height="45" src="__TMPL__/public/assets/images/headicon.png"/></td>
+                    </if>
+                    <if condition="!empty($vo['student_card'])">
+                        <td><img width="45" height="45" src="{:cmf_get_asset_url($vo['student_card'])}"/></td>
+                        <else/>
+                        <td><img width="45" height="45" src="__TMPL__/public/assets/images/headicon.png"/></td>
+                    </if>
+                    <td>{$vo.college}</td>
+                    <td>{$vo.class}</td>
+                    <td>{$vo.user_email}</td>
+                    <td>{$vo.mobile}</td>
+                    <td>{$user_statuses[$vo['user_status']]}</td>
+                    <td>
+                        <a href='{:url("adminStu/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a> |
+                        <a class="js-ajax-delete" href="{:url('adminStu/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a> |
+                        <neq name="vo.id" value="1">
+                            <empty name="vo.user_status">
+                                <a href="{:url('adminStu/cancelban',array('id'=>$vo['id']))}"
+                                   class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:lang('ACTIVATE_USER')}</a>
+                                <else/>
+                                <a href="{:url('adminStu/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
+                            </empty>
+                            <else/>
+                            <a style="color: #ccc;">{:lang('BLOCK_USER')}</a>
+                        </neq>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
